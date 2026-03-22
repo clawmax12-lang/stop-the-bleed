@@ -690,7 +690,21 @@
         <button type="submit" class="btn-primary">Get the Fix — Free <span class="arrow">→</span></button>
       </form>
       <div class="form-success" id="bottomSuccess">✓ check your inbox — download link incoming</div>
-      <p class="form-note">We'll also let you know when the Solopreneur Pack ships next week.</p>
+      <p class="form-note">No drip sequences. No credit card. Just the files.</p>
+    </div>
+
+    <!-- SOLOPRENEUR PACK CTA -->
+    <div class="solo-pack-wrap reveal" style="margin-top:56px;padding-top:48px;border-top:1px solid var(--border);">
+      <p style="font-family:var(--mono);font-size:13px;color:var(--text-dim);margin-bottom:8px;">
+        Already downloaded Stop the Bleed? The Solopreneur Pack is the next step.
+      </p>
+      <p style="font-family:var(--mono);font-size:11px;color:var(--text-dimmer);margin-bottom:28px;letter-spacing:0.02em;">
+        Model router skill &nbsp;·&nbsp; Cost audit workflow &nbsp;·&nbsp; Heartbeat optimizer &nbsp;·&nbsp; Context TTL guide &nbsp;·&nbsp; Prompt compression templates
+      </p>
+      <button id="soloPackBtn" onclick="soloPackCheckout()" style="padding:15px 28px;background:transparent;border:2px solid var(--green);color:var(--green);font-family:var(--mono);font-size:13px;font-weight:700;letter-spacing:0.02em;cursor:pointer;white-space:nowrap;display:inline-flex;align-items:center;gap:8px;transition:background 0.15s,color 0.15s;">
+        Get the Solopreneur Pack — $49 <span style="display:inline-block;transition:transform 0.2s ease;">→</span>
+      </button>
+      <p style="font-family:var(--mono);font-size:11px;color:var(--text-dimmer);margin-top:14px;">One-time payment. Instant download. No subscription.</p>
     </div>
   </div>
 </div>
@@ -864,6 +878,39 @@
 
   setupForm('heroForm', 'heroSuccess');
   setupForm('bottomForm', 'bottomSuccess');
+
+  /* ── SOLOPRENEUR PACK CHECKOUT ────────────────────────── */
+  window.soloPackCheckout = async function() {
+    const btn = document.getElementById('soloPackBtn');
+    const heroEmail = document.querySelector('#heroForm input[type="email"]');
+    const bottomEmail = document.querySelector('#bottomForm input[type="email"]');
+    const email = (heroEmail && heroEmail.value.trim()) || (bottomEmail && bottomEmail.value.trim()) || '';
+
+    if (btn) {
+      btn.textContent = 'Redirecting to checkout…';
+      btn.disabled = true;
+    }
+
+    try {
+      const res = await fetch('/api/create-checkout', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email }),
+      });
+      const data = await res.json();
+      if (data.url) {
+        window.location.href = data.url;
+      } else {
+        throw new Error(data.error || 'No URL returned');
+      }
+    } catch (err) {
+      console.error('Checkout error:', err);
+      if (btn) {
+        btn.textContent = 'Something went wrong — try again';
+        btn.disabled = false;
+      }
+    }
+  };
 
   // Sync email fields
   const heroInput = document.querySelector('#heroForm input[type="email"]');

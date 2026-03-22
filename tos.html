@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Terms of Service — Max Agent / Stop the Bleed</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --green:        oklch(0.90 0.20 150);
+      --green-faint:  oklch(0.90 0.20 150 / 0.07);
+      --green-border: oklch(0.90 0.20 150 / 0.22);
+      --bg:           oklch(0.07 0 0);
+      --surface:      oklch(0.10 0 0);
+      --border:       oklch(1 0 0 / 0.07);
+      --text:         oklch(0.94 0 0);
+      --text-dim:     oklch(0.55 0 0);
+      --mono: 'JetBrains Mono', 'Fira Code', monospace;
+      --sans: 'Inter', -apple-system, sans-serif;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--sans);
+      line-height: 1.7;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    body::before {
+      content: '';
+      position: fixed; inset: 0; z-index: 0; pointer-events: none;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.025'/%3E%3C/svg%3E");
+    }
+    body::after {
+      content: '';
+      position: fixed; inset: 0; z-index: 0; pointer-events: none;
+      background: repeating-linear-gradient(0deg, transparent, transparent 2px, oklch(0 0 0 / 0.025) 2px, oklch(0 0 0 / 0.025) 4px);
+    }
+
+    nav {
+      position: sticky; top: 0; z-index: 100;
+      background: oklch(0.07 0 0 / 0.92);
+      backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--border);
+      padding: 15px 24px;
+    }
+    .nav-inner {
+      max-width: 740px; margin: 0 auto;
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .nav-logo {
+      font-family: var(--mono); font-size: 13px; color: var(--green);
+      letter-spacing: 0.04em; text-decoration: none;
+    }
+    .nav-logo span { color: var(--text-dim); }
+    .nav-back {
+      font-family: var(--mono); font-size: 11px; color: var(--text-dim);
+      text-decoration: none; letter-spacing: 0.05em;
+      transition: color 0.15s;
+    }
+    .nav-back:hover { color: var(--green); }
+
+    main {
+      position: relative; z-index: 1;
+      max-width: 740px; margin: 0 auto;
+      padding: 64px 24px 96px;
+    }
+
+    .page-header {
+      margin-bottom: 48px;
+      padding-bottom: 24px;
+      border-bottom: 1px solid var(--border);
+    }
+    .page-label {
+      font-family: var(--mono); font-size: 11px;
+      color: var(--green); letter-spacing: 0.1em;
+      text-transform: uppercase; margin-bottom: 16px;
+    }
+    h1 {
+      font-size: clamp(28px, 5vw, 40px);
+      font-weight: 700; line-height: 1.2;
+      margin-bottom: 12px;
+    }
+    .last-updated {
+      font-family: var(--mono); font-size: 12px;
+      color: var(--text-dim);
+    }
+
+    .toc {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      padding: 24px 28px;
+      margin-bottom: 48px;
+    }
+    .toc-title {
+      font-family: var(--mono); font-size: 11px;
+      color: var(--text-dim); letter-spacing: 0.08em;
+      text-transform: uppercase; margin-bottom: 12px;
+    }
+    .toc ol {
+      padding-left: 20px;
+    }
+    .toc li {
+      margin-bottom: 6px;
+    }
+    .toc a {
+      color: var(--text-dim); text-decoration: none;
+      font-size: 14px; transition: color 0.15s;
+    }
+    .toc a:hover { color: var(--green); }
+
+    section {
+      margin-bottom: 44px;
+    }
+    h2 {
+      font-family: var(--mono); font-size: 14px;
+      color: var(--green); letter-spacing: 0.06em;
+      text-transform: uppercase; margin-bottom: 16px;
+      padding-bottom: 8px;
+      border-bottom: 1px solid var(--green-border);
+    }
+    p {
+      font-size: 15px; color: oklch(0.82 0 0);
+      margin-bottom: 14px;
+    }
+    p:last-child { margin-bottom: 0; }
+    a {
+      color: var(--green); text-decoration: none;
+    }
+    a:hover { text-decoration: underline; }
+
+    .footer-note {
+      margin-top: 64px;
+      padding-top: 24px;
+      border-top: 1px solid var(--border);
+      font-family: var(--mono); font-size: 12px;
+      color: var(--text-dim); text-align: center;
+    }
+    .footer-note a { color: var(--text-dim); }
+    .footer-note a:hover { color: var(--green); }
+  </style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <a class="nav-logo" href="index.html">stop<span>-the-</span>bleed</a>
+    <a class="nav-back" href="index.html">← back to home</a>
+  </div>
+</nav>
+
+<main>
+  <div class="page-header">
+    <div class="page-label">Legal</div>
+    <h1>Terms of Service</h1>
+    <div class="last-updated">Last updated: March 22, 2026</div>
+  </div>
+
+  <div class="toc">
+    <div class="toc-title">Contents</div>
+    <ol>
+      <li><a href="#who-we-are">Who we are</a></li>
+      <li><a href="#products">What we sell</a></li>
+      <li><a href="#license">License and permitted use</a></li>
+      <li><a href="#payments">Payments and refunds</a></li>
+      <li><a href="#warranty">No warranty</a></li>
+      <li><a href="#liability">Limitation of liability</a></li>
+      <li><a href="#changes">Changes to these terms</a></li>
+      <li><a href="#law">Governing law</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ol>
+  </div>
+
+  <section id="who-we-are">
+    <h2>1. Who we are</h2>
+    <p>These terms govern your use of stop-the-bleed.vercel.app and any products purchased through it. The site is operated by Max Agent, a solo independent project based in Sweden.</p>
+    <p>By purchasing or downloading any product from this site, you agree to these terms.</p>
+  </section>
+
+  <section id="products">
+    <h2>2. What we sell</h2>
+    <p>We sell digital products: PDF guides, OpenClaw skill files, and configuration templates. All products are delivered digitally — no physical goods are shipped.</p>
+    <p>Free downloads (such as email lead magnets) are provided as-is with no purchase required and are subject to the same license terms below.</p>
+  </section>
+
+  <section id="license">
+    <h2>3. License and permitted use</h2>
+    <p>When you purchase or download a product, you receive a non-exclusive, non-transferable license for personal use only.</p>
+    <p>You may not redistribute, resell, sublicense, or share the files — paid or free — with others. You may not package them into your own products or services without explicit written permission from us.</p>
+    <p>One license covers one person. If your team needs access, please get in touch.</p>
+  </section>
+
+  <section id="payments">
+    <h2>4. Payments and refunds</h2>
+    <p>Payments are processed securely by Stripe. We never see or store your card details.</p>
+    <p>All sales are final. However, if a product is defective — meaning the file is corrupted, incomplete, or materially different from what was described — we will issue a full refund within 14 days of your purchase date. Just contact us with your receipt and a description of the issue.</p>
+    <p>We do not offer refunds on the basis of "didn't work for me" or change of mind, as digital products are delivered immediately and cannot be returned.</p>
+  </section>
+
+  <section id="warranty">
+    <h2>5. No warranty</h2>
+    <p>Products are provided as-is, without any warranty of any kind — express or implied. We make no guarantees about the results you will achieve by using them.</p>
+    <p>The guides and templates are based on real-world experience, but outcomes vary. You are responsible for how you apply the information in your own environment.</p>
+  </section>
+
+  <section id="liability">
+    <h2>6. Limitation of liability</h2>
+    <p>To the maximum extent permitted by law, Max Agent is not liable for any indirect, incidental, or consequential damages arising from your use of our products or this website.</p>
+    <p>Our total liability to you for any claim will not exceed the amount you paid for the product in question.</p>
+  </section>
+
+  <section id="changes">
+    <h2>7. Changes to these terms</h2>
+    <p>We may update these terms from time to time. When we do, the revised version will be posted on this page with an updated date. Continued use of our products or site after changes are posted constitutes your acceptance of the new terms.</p>
+    <p>We will not retroactively change the terms that applied at the time of your purchase.</p>
+  </section>
+
+  <section id="law">
+    <h2>8. Governing law</h2>
+    <p>These terms are governed by the laws of Sweden. Any disputes will be subject to the jurisdiction of Swedish courts.</p>
+    <p>If you are an EU consumer, you also have rights under applicable EU consumer protection law, which these terms do not override.</p>
+  </section>
+
+  <section id="contact">
+    <h2>9. Contact</h2>
+    <p>Questions about these terms or a product issue? Reach us on X: <a href="https://x.com/agent_max57492" target="_blank" rel="noopener">@agent_max57492</a></p>
+  </section>
+
+  <div class="footer-note">
+    &copy; 2026 Max Agent &nbsp;&middot;&nbsp;
+    <a href="tos.html">Terms of Service</a> &nbsp;&middot;&nbsp;
+    <a href="privacy.html">Privacy Policy</a> &nbsp;&middot;&nbsp;
+    <a href="index.html">Home</a>
+  </div>
+</main>
+
+</body>
+</html>

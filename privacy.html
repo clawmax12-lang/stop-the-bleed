@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Privacy Policy — Max Agent / Stop the Bleed</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --green:        oklch(0.90 0.20 150);
+      --green-faint:  oklch(0.90 0.20 150 / 0.07);
+      --green-border: oklch(0.90 0.20 150 / 0.22);
+      --bg:           oklch(0.07 0 0);
+      --surface:      oklch(0.10 0 0);
+      --border:       oklch(1 0 0 / 0.07);
+      --text:         oklch(0.94 0 0);
+      --text-dim:     oklch(0.55 0 0);
+      --mono: 'JetBrains Mono', 'Fira Code', monospace;
+      --sans: 'Inter', -apple-system, sans-serif;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--sans);
+      line-height: 1.7;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    body::before {
+      content: '';
+      position: fixed; inset: 0; z-index: 0; pointer-events: none;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.025'/%3E%3C/svg%3E");
+    }
+    body::after {
+      content: '';
+      position: fixed; inset: 0; z-index: 0; pointer-events: none;
+      background: repeating-linear-gradient(0deg, transparent, transparent 2px, oklch(0 0 0 / 0.025) 2px, oklch(0 0 0 / 0.025) 4px);
+    }
+
+    nav {
+      position: sticky; top: 0; z-index: 100;
+      background: oklch(0.07 0 0 / 0.92);
+      backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--border);
+      padding: 15px 24px;
+    }
+    .nav-inner {
+      max-width: 740px; margin: 0 auto;
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .nav-logo {
+      font-family: var(--mono); font-size: 13px; color: var(--green);
+      letter-spacing: 0.04em; text-decoration: none;
+    }
+    .nav-logo span { color: var(--text-dim); }
+    .nav-back {
+      font-family: var(--mono); font-size: 11px; color: var(--text-dim);
+      text-decoration: none; letter-spacing: 0.05em;
+      transition: color 0.15s;
+    }
+    .nav-back:hover { color: var(--green); }
+
+    main {
+      position: relative; z-index: 1;
+      max-width: 740px; margin: 0 auto;
+      padding: 64px 24px 96px;
+    }
+
+    .page-header {
+      margin-bottom: 48px;
+      padding-bottom: 24px;
+      border-bottom: 1px solid var(--border);
+    }
+    .page-label {
+      font-family: var(--mono); font-size: 11px;
+      color: var(--green); letter-spacing: 0.1em;
+      text-transform: uppercase; margin-bottom: 16px;
+    }
+    h1 {
+      font-size: clamp(28px, 5vw, 40px);
+      font-weight: 700; line-height: 1.2;
+      margin-bottom: 12px;
+    }
+    .last-updated {
+      font-family: var(--mono); font-size: 12px;
+      color: var(--text-dim);
+    }
+
+    .toc {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      padding: 24px 28px;
+      margin-bottom: 48px;
+    }
+    .toc-title {
+      font-family: var(--mono); font-size: 11px;
+      color: var(--text-dim); letter-spacing: 0.08em;
+      text-transform: uppercase; margin-bottom: 12px;
+    }
+    .toc ol { padding-left: 20px; }
+    .toc li { margin-bottom: 6px; }
+    .toc a {
+      color: var(--text-dim); text-decoration: none;
+      font-size: 14px; transition: color 0.15s;
+    }
+    .toc a:hover { color: var(--green); }
+
+    section { margin-bottom: 44px; }
+    h2 {
+      font-family: var(--mono); font-size: 14px;
+      color: var(--green); letter-spacing: 0.06em;
+      text-transform: uppercase; margin-bottom: 16px;
+      padding-bottom: 8px;
+      border-bottom: 1px solid var(--green-border);
+    }
+    p {
+      font-size: 15px; color: oklch(0.82 0 0);
+      margin-bottom: 14px;
+    }
+    p:last-child { margin-bottom: 0; }
+    a { color: var(--green); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    .data-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 14px;
+      font-size: 14px;
+    }
+    .data-table th {
+      font-family: var(--mono); font-size: 11px;
+      color: var(--text-dim); letter-spacing: 0.07em;
+      text-transform: uppercase; text-align: left;
+      padding: 8px 12px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+    }
+    .data-table td {
+      padding: 10px 12px;
+      border: 1px solid var(--border);
+      color: oklch(0.82 0 0);
+      vertical-align: top;
+    }
+    .data-table tr:nth-child(even) td {
+      background: oklch(0.09 0 0);
+    }
+
+    .highlight-box {
+      background: var(--green-faint);
+      border: 1px solid var(--green-border);
+      padding: 16px 20px;
+      margin-bottom: 14px;
+    }
+    .highlight-box p {
+      margin-bottom: 0;
+      font-size: 14px;
+    }
+
+    .footer-note {
+      margin-top: 64px;
+      padding-top: 24px;
+      border-top: 1px solid var(--border);
+      font-family: var(--mono); font-size: 12px;
+      color: var(--text-dim); text-align: center;
+    }
+    .footer-note a { color: var(--text-dim); }
+    .footer-note a:hover { color: var(--green); }
+  </style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <a class="nav-logo" href="index.html">stop<span>-the-</span>bleed</a>
+    <a class="nav-back" href="index.html">← back to home</a>
+  </div>
+</nav>
+
+<main>
+  <div class="page-header">
+    <div class="page-label">Legal</div>
+    <h1>Privacy Policy</h1>
+    <div class="last-updated">Last updated: March 22, 2026</div>
+  </div>
+
+  <div class="toc">
+    <div class="toc-title">Contents</div>
+    <ol>
+      <li><a href="#what-we-collect">What we collect</a></li>
+      <li><a href="#why">Why we collect it</a></li>
+      <li><a href="#storage">Where it's stored</a></li>
+      <li><a href="#third-parties">Third parties</a></li>
+      <li><a href="#cookies">Cookies and analytics</a></li>
+      <li><a href="#retention">How long we keep it</a></li>
+      <li><a href="#your-rights">Your rights (GDPR)</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ol>
+  </div>
+
+  <div class="highlight-box">
+    <p>Short version: we collect your email when you sign up, use it to send you the download and occasional updates, and never sell it. That's it.</p>
+  </div>
+
+  <section id="what-we-collect">
+    <h2>1. What we collect</h2>
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th>Data</th>
+          <th>When</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Email address</td>
+          <td>When you submit the signup form</td>
+        </tr>
+        <tr>
+          <td>IP address</td>
+          <td>Automatically, on each page visit (via Vercel hosting)</td>
+        </tr>
+        <tr>
+          <td>Basic analytics</td>
+          <td>Page views and referrer data via Vercel Analytics</td>
+        </tr>
+        <tr>
+          <td>Payment details</td>
+          <td>If you purchase a product — handled entirely by Stripe, not us</td>
+        </tr>
+      </tbody>
+    </table>
+    <p>We do not collect names, phone numbers, or any other personal information unless you voluntarily provide it when contacting us.</p>
+  </section>
+
+  <section id="why">
+    <h2>2. Why we collect it</h2>
+    <p>Your email address is collected for three purposes: to deliver your download, to send you product updates when we release new guides or skill files (at most once a week), and to respond if you reach out to us.</p>
+    <p>IP addresses and analytics data are used only to understand general traffic patterns and improve the site. We do not use them to identify individual users.</p>
+  </section>
+
+  <section id="storage">
+    <h2>3. Where it's stored</h2>
+    <p>Email addresses are stored in <strong style="color: var(--text);">Resend</strong>, an email delivery service. Payment data is handled by <strong style="color: var(--text);">Stripe</strong> — we never see or store your card details.</p>
+    <p>No other third-party data processors are used. Both Resend and Stripe are GDPR-compliant services.</p>
+  </section>
+
+  <section id="third-parties">
+    <h2>4. Third parties</h2>
+    <p>We do not sell, rent, or share your personal data with any third parties for marketing or advertising purposes. Ever.</p>
+    <p>The only services that ever touch your data are Resend (email delivery), Stripe (payments), and Vercel (hosting and analytics) — and only to the extent needed to operate the site.</p>
+  </section>
+
+  <section id="cookies">
+    <h2>5. Cookies and analytics</h2>
+    <p>We do not set any cookies on this site.</p>
+    <p>Vercel Analytics is used for basic, privacy-friendly page view tracking. It does not use cookies and does not track users across sites. The data collected is aggregate and not linked to individual identities.</p>
+  </section>
+
+  <section id="retention">
+    <h2>6. How long we keep it</h2>
+    <p>Your email address is kept until you unsubscribe or request deletion. Every email we send includes an unsubscribe link.</p>
+    <p>If you delete your account or request erasure, we will remove your email from Resend within 30 days.</p>
+    <p>Analytics data is retained per Vercel's standard retention policy and is not linked to personal identifiers.</p>
+  </section>
+
+  <section id="your-rights">
+    <h2>7. Your rights (GDPR)</h2>
+    <p>If you are in the EU or UK, you have the following rights regarding your personal data:</p>
+    <p><strong style="color: var(--text);">Access</strong> — You can ask what data we hold about you.</p>
+    <p><strong style="color: var(--text);">Rectification</strong> — You can ask us to correct inaccurate data.</p>
+    <p><strong style="color: var(--text);">Erasure</strong> — You can ask us to delete your data.</p>
+    <p><strong style="color: var(--text);">Portability</strong> — You can ask for a copy of your data in a machine-readable format.</p>
+    <p><strong style="color: var(--text);">Objection</strong> — You can object to how we use your data at any time.</p>
+    <p>To exercise any of these rights, contact us on X (see below). We will respond within 30 days.</p>
+    <p>You also have the right to lodge a complaint with a supervisory authority — in Sweden, that is the <a href="https://www.imy.se" target="_blank" rel="noopener">Integritetsskyddsmyndigheten (IMY)</a>.</p>
+  </section>
+
+  <section id="contact">
+    <h2>8. Contact</h2>
+    <p>For any privacy-related questions or requests, reach us on X: <a href="https://x.com/agent_max57492" target="_blank" rel="noopener">@agent_max57492</a></p>
+    <p>This policy applies to stop-the-bleed.vercel.app and is operated by Max Agent, Sweden.</p>
+  </section>
+
+  <div class="footer-note">
+    &copy; 2026 Max Agent &nbsp;&middot;&nbsp;
+    <a href="tos.html">Terms of Service</a> &nbsp;&middot;&nbsp;
+    <a href="privacy.html">Privacy Policy</a> &nbsp;&middot;&nbsp;
+    <a href="index.html">Home</a>
+  </div>
+</main>
+
+</body>
+</html>
