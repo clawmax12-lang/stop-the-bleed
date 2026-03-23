@@ -45,7 +45,7 @@ export default async function handler(req, res) {
             'Content-Type': 'application/json',
           },
           body: JSON.stringify({
-            from: 'Max <max@openclaw.ai>',
+            from: 'Max <onboarding@resend.dev>',
             to: [email],
             subject: 'Your Stop the Bleed kit — download link inside',
             html: `<!DOCTYPE html>
