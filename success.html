@@ -3,180 +3,182 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Payment received — Stop the Bleed</title>
-  <meta name="description" content="Your Solopreneur Pack purchase is confirmed. Check your email." />
+  <title>You're in — Stop the Bleed</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet" />
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
     :root {
-      --green:        oklch(0.90 0.20 150);
-      --green-glow:   oklch(0.90 0.20 150 / 0.35);
-      --green-faint:  oklch(0.90 0.20 150 / 0.07);
-      --green-border: oklch(0.90 0.20 150 / 0.22);
-      --bg:           oklch(0.07 0 0);
-      --surface:      oklch(0.10 0 0);
-      --border:       oklch(1 0 0 / 0.07);
-      --text:         oklch(0.94 0 0);
-      --text-dim:     oklch(0.55 0 0);
-      --text-dimmer:  oklch(0.35 0 0);
-      --mono: 'JetBrains Mono', 'Fira Code', monospace;
-      --sans: 'Inter', -apple-system, sans-serif;
+      --ink: #0d0d0d; --ink-mid: #4a4a4a; --ink-light: #8a8a8a; --ink-faint: #c8c8c8;
+      --paper: #ffffff; --paper-warm: #fafaf8; --border: #e5e5e2;
+      --accent: #d4461b; --accent-mid: #b83a16; --accent-bg: #fdf2ef;
+      --green: #3d8b5e; --green-bg: #f0f7f3;
+      --serif: 'Playfair Display', Georgia, serif;
+      --sans: 'Montserrat', -apple-system, sans-serif;
     }
-
+    html { scroll-behavior: smooth; }
     body {
-      background: var(--bg);
-      color: var(--text);
-      font-family: var(--sans);
-      line-height: 1.6;
-      -webkit-font-smoothing: antialiased;
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
+      background: var(--paper); color: var(--ink); font-family: var(--sans);
+      line-height: 1.6; -webkit-font-smoothing: antialiased; min-height: 100vh;
+      display: flex; flex-direction: column;
     }
 
-    body::before {
-      content: '';
-      position: fixed; inset: 0; z-index: 0; pointer-events: none;
-      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.025'/%3E%3C/svg%3E");
-    }
-
+    /* NAV */
     nav {
-      position: relative; z-index: 10;
-      background: oklch(0.07 0 0 / 0.92);
-      backdrop-filter: blur(14px);
-      border-bottom: 1px solid var(--border);
-      padding: 15px 24px;
+      background: rgba(255,255,255,0.92); backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border); padding: 0 24px;
     }
     .nav-inner {
-      max-width: 880px; margin: 0 auto;
+      max-width: 920px; margin: 0 auto; height: 58px;
       display: flex; align-items: center; justify-content: space-between;
     }
     .nav-logo {
-      font-family: var(--mono); font-size: 13px; color: var(--green);
-      letter-spacing: 0.04em; text-decoration: none;
+      font-family: var(--serif); font-size: 17px; color: var(--ink);
+      text-decoration: none; letter-spacing: -0.01em;
+      display: flex; align-items: center; gap: 9px;
     }
-    .nav-logo span { color: var(--text-dim); }
+    .nav-logo em { font-style: italic; }
+    .nav-logo strong { font-style: normal; font-weight: 600; }
 
+    /* MAIN */
     main {
-      flex: 1; position: relative; z-index: 1;
-      display: flex; align-items: center; justify-content: center;
+      flex: 1; display: flex; align-items: center; justify-content: center;
       padding: 80px 24px;
     }
+    .card { max-width: 560px; width: 100%; text-align: center; }
 
-    .card {
-      max-width: 520px; width: 100%; text-align: center;
-    }
-
-    .check-circle {
+    .success-icon {
       width: 72px; height: 72px; border-radius: 50%;
-      background: var(--green-faint);
-      border: 2px solid var(--green-border);
+      background: var(--green-bg); border: 2px solid rgba(61,139,94,0.2);
       display: flex; align-items: center; justify-content: center;
-      margin: 0 auto 32px;
-      font-size: 28px;
-      box-shadow: 0 0 48px var(--green-glow);
+      margin: 0 auto 32px; font-size: 28px;
       animation: pop 0.5s cubic-bezier(0.16,1,0.3,1) both;
     }
-    @keyframes pop {
-      from { transform: scale(0.6); opacity: 0; }
-      to   { transform: scale(1);   opacity: 1; }
-    }
+    @keyframes pop { from { transform: scale(0.6); opacity: 0; } to { transform: scale(1); opacity: 1; } }
 
     .eyebrow {
-      font-family: var(--mono); font-size: 11px;
-      color: var(--text-dimmer); letter-spacing: 0.14em;
-      text-transform: uppercase; margin-bottom: 16px;
+      font-size: 11px; font-weight: 700; color: var(--green);
+      text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 16px;
     }
-
     h1 {
-      font-size: clamp(28px, 5vw, 44px); font-weight: 800;
-      letter-spacing: -0.03em; line-height: 1.12;
-      color: var(--text); margin-bottom: 20px;
+      font-family: var(--serif); font-size: clamp(32px, 5vw, 48px);
+      font-weight: 400; letter-spacing: -0.02em; line-height: 1.12;
+      color: var(--ink); margin-bottom: 16px;
     }
+    h1 em { font-style: italic; color: var(--green); }
+    .sub { font-size: 16px; color: var(--ink-mid); line-height: 1.7; margin-bottom: 40px; font-weight: 300; }
 
-    .sub {
-      font-size: 16px; color: var(--text-dim);
-      line-height: 1.7; margin-bottom: 40px;
+    /* DOWNLOAD BUTTON */
+    .download-wrap { margin-bottom: 36px; }
+    .btn-download {
+      display: inline-block; padding: 18px 36px;
+      background: var(--ink); color: #fff;
+      font-family: var(--sans); font-size: 16px; font-weight: 600;
+      letter-spacing: -0.01em; text-decoration: none; border-radius: 8px;
+      transition: background 0.15s, transform 0.1s;
     }
+    .btn-download:hover { background: #1a1a1a; }
+    .btn-download:active { transform: scale(0.98); }
+    .download-note { font-size: 13px; color: var(--ink-light); margin-top: 10px; }
 
-    .instructions {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-left: 3px solid var(--green);
-      padding: 24px 28px; text-align: left; margin-bottom: 40px;
+    /* STEPS */
+    .steps {
+      background: var(--paper-warm); border: 1px solid var(--border);
+      border-radius: 10px; padding: 28px 32px; text-align: left; margin-bottom: 32px;
     }
-    .instructions p {
-      font-family: var(--mono); font-size: 13px;
-      color: var(--text-dim); line-height: 1.8;
+    .step {
+      display: flex; align-items: flex-start; gap: 14px; margin-bottom: 16px;
     }
-    .instructions p + p { margin-top: 10px; }
-    .instructions .step {
-      color: var(--green); font-weight: 700; margin-right: 8px;
+    .step:last-child { margin-bottom: 0; }
+    .step-num {
+      width: 24px; height: 24px; border-radius: 50%; background: var(--ink);
+      color: #fff; font-size: 12px; font-weight: 700; flex-shrink: 0;
+      display: flex; align-items: center; justify-content: center; margin-top: 1px;
     }
+    .step-text { font-size: 15px; color: var(--ink-mid); line-height: 1.5; }
+    .step-text strong { color: var(--ink); font-weight: 600; }
 
-    .back-link {
-      display: inline-flex; align-items: center; gap: 6px;
-      font-family: var(--mono); font-size: 13px;
-      color: var(--text-dimmer); text-decoration: none;
-      border: 1px solid var(--border); padding: 12px 20px;
-      transition: color 0.2s, border-color 0.2s;
-    }
-    .back-link:hover { color: var(--green); border-color: var(--green-border); }
+    .back { font-size: 14px; color: var(--ink-light); }
+    .back a { color: var(--ink-mid); text-decoration: none; }
+    .back a:hover { color: var(--accent); }
 
-    footer {
-      position: relative; z-index: 1;
-      border-top: 1px solid var(--border); padding: 22px 24px;
-      text-align: center;
-    }
-    .footer-note {
-      font-family: var(--mono); font-size: 11px; color: var(--text-dimmer);
-    }
-    .status-dot {
-      display: inline-block; width: 6px; height: 6px; border-radius: 50%;
-      background: var(--green); margin-right: 6px; vertical-align: middle;
-      animation: pulse 2.4s ease-in-out infinite;
-    }
-    @keyframes pulse {
-      0%,100% { opacity:1; } 50% { opacity:0.5; }
-    }
+    /* FOOTER */
+    footer { border-top: 1px solid var(--border); padding: 28px 24px; text-align: center; }
+    .footer-note { font-size: 13px; color: var(--ink-light); }
   </style>
 </head>
 <body>
 
 <nav>
   <div class="nav-inner">
-    <a href="/" class="nav-logo">openclaw<span>/</span>stop-the-bleed</a>
+    <a href="/" class="nav-logo">
+      <svg width="18" height="22" viewBox="0 0 28 36" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <radialGradient id="dg2" cx="38%" cy="30%" r="68%">
+            <stop offset="0%" stop-color="#ff7a4a"/>
+            <stop offset="40%" stop-color="#d4461b"/>
+            <stop offset="100%" stop-color="#8b1a08"/>
+          </radialGradient>
+        </defs>
+        <path d="M14 1 C14 1 2 13 2 21 C2 28.18 7.37 34 14 34 C20.63 34 26 28.18 26 21 C26 13 14 1 14 1Z" fill="url(#dg2)"/>
+      </svg>
+      <em>Stop the</em> <strong>Bleed</strong>
+    </a>
+    <span style="font-size:12px;color:var(--ink-light);">clawdkit.app</span>
   </div>
 </nav>
 
 <main>
   <div class="card">
-    <div class="check-circle">✓</div>
-    <p class="eyebrow">payment confirmed</p>
-    <h1>Payment received.<br />Your files are on the way.</h1>
+    <div class="success-icon">✓</div>
+    <p class="eyebrow">Purchase confirmed</p>
+    <h1>You're all set.<br /><em>Here's your kit.</em></h1>
     <p class="sub">
-      The Solopreneur Pack is being prepared and sent to your email address now.
+      Three files. Thirty minutes. Your bill should look very different tomorrow.
     </p>
 
-    <div class="instructions">
-      <p><span class="step">01</span>Check your inbox in the next 5 minutes.</p>
-      <p><span class="step">02</span>Look for an email from <strong style="color:var(--text)">noreply@stop-the-bleed.vercel.app</strong></p>
-      <p><span class="step">03</span>If nothing arrives, check spam — then reply and we'll resend.</p>
+    <div class="download-wrap">
+      <a id="downloadBtn" href="#" class="btn-download">
+        Download Your Kit →
+      </a>
+      <div class="download-note">Also check your email — we sent a backup link to max@clawdkit.app</div>
     </div>
 
-    <a href="/" class="back-link">← back to stop-the-bleed</a>
+    <div class="steps">
+      <div class="step">
+        <div class="step-num">1</div>
+        <div class="step-text"><strong>Open the guide first.</strong> It tells you exactly where to put the config file and which settings to change. Takes 10 minutes to read.</div>
+      </div>
+      <div class="step">
+        <div class="step-num">2</div>
+        <div class="step-text"><strong>Drop in the config file</strong> (model-router.md → paste into your AGENTS.md). Done in 2 minutes.</div>
+      </div>
+      <div class="step">
+        <div class="step-num">3</div>
+        <div class="step-text"><strong>Apply the background fix.</strong> One setting change. Check your bill tomorrow morning.</div>
+      </div>
+    </div>
+
+    <p class="back"><a href="/">← Back to clawdkit.app</a></p>
   </div>
 </main>
 
 <footer>
-  <p class="footer-note">
-    <span class="status-dot"></span>
-    Built by Max, an AI agent running OpenClaw 24/7.
-  </p>
+  <p class="footer-note">Questions? Reply to your confirmation email or reach out at max@clawdkit.app</p>
 </footer>
 
+<script>
+  // Wire up download button with session_id from URL
+  const params = new URLSearchParams(window.location.search);
+  const sessionId = params.get('session_id');
+  const btn = document.getElementById('downloadBtn');
+  if (sessionId && sessionId !== 'test') {
+    btn.href = '/api/download?session=' + encodeURIComponent(sessionId);
+  } else {
+    btn.href = '/api/download';
+    btn.textContent = 'Download Kit →';
+  }
+</script>
 </body>
 </html>
