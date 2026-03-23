@@ -36,7 +36,7 @@ export default async function handler(req, res) {
     const email = session.customer_email || session.customer_details?.email;
 
     if (email && process.env.RESEND_API_KEY) {
-      const DOWNLOAD_URL = process.env.DOWNLOAD_URL || 'https://stop-the-bleed.vercel.app/api/download';
+      const DOWNLOAD_URL = process.env.DOWNLOAD_URL || 'https://clawdkit.app/api/download';
       try {
         await fetch('https://api.resend.com/emails', {
           method: 'POST',
@@ -45,7 +45,7 @@ export default async function handler(req, res) {
             'Content-Type': 'application/json',
           },
           body: JSON.stringify({
-            from: 'Max <onboarding@resend.dev>',
+            from: 'Max <max@clawdkit.app>',
             to: [email],
             subject: 'Your Stop the Bleed kit — download link inside',
             html: `<!DOCTYPE html>

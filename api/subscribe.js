@@ -10,7 +10,7 @@ export default async function handler(req, res) {
   }
 
   const RESEND_API_KEY = process.env.RESEND_API_KEY;
-  const DOWNLOAD_URL = process.env.DOWNLOAD_URL || 'https://stop-the-bleed.vercel.app/api/download';
+  const DOWNLOAD_URL = process.env.DOWNLOAD_URL || 'https://clawdkit.app/api/download';
 
   if (RESEND_API_KEY) {
     try {
@@ -21,7 +21,7 @@ export default async function handler(req, res) {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          from: 'Max <onboarding@resend.dev>',
+          from: 'Max <max@clawdkit.app>',
           to: [email],
           subject: 'Your free savings calculator — Stop the Bleed',
           html: `<!DOCTYPE html>

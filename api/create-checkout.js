@@ -33,8 +33,8 @@ export default async function handler(req, res) {
           quantity: 1,
         },
       ],
-      success_url: `${req.headers.origin || 'https://stop-the-bleed.vercel.app'}/success?session_id={CHECKOUT_SESSION_ID}`,
-      cancel_url: `${req.headers.origin || 'https://stop-the-bleed.vercel.app'}`,
+      success_url: `${req.headers.origin || 'https://clawdkit.app'}/success?session_id={CHECKOUT_SESSION_ID}`,
+      cancel_url: `${req.headers.origin || 'https://clawdkit.app'}`,
     });
 
     return res.status(200).json({ url: session.url });
