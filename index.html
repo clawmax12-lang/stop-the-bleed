@@ -155,10 +155,12 @@
       letter-spacing: -0.01em;
       border: none; border-radius: 7px;
       cursor: pointer; text-decoration: none;
-      transition: background 0.15s;
+      transition: background 0.2s cubic-bezier(0.25, 0.1, 0.25, 1),
+                  transform 0.2s cubic-bezier(0.25, 0.1, 0.25, 1),
+                  box-shadow 0.2s cubic-bezier(0.25, 0.1, 0.25, 1);
     }
-    .btn-primary:hover { background: var(--cta-hover); }
-    .btn-primary:active { transform: scale(0.98); }
+    .btn-primary:hover { background: var(--cta-hover); transform: scale(1.02); box-shadow: 0 4px 16px rgba(0,0,0,0.12); }
+    .btn-primary:active { transform: scale(0.98); box-shadow: none; }
     .hero-cta-note { font-size: 13px; color: var(--ink-light); }
 
     /* ── SECTION DIVIDER ───────────────────────────────── */
@@ -340,10 +342,12 @@
       font-weight: 600; letter-spacing: -0.01em;
       border: none; border-radius: 7px; cursor: pointer;
       text-align: center; text-decoration: none;
-      transition: background 0.15s;
+      transition: background 0.2s cubic-bezier(0.25, 0.1, 0.25, 1),
+                  transform 0.2s cubic-bezier(0.25, 0.1, 0.25, 1),
+                  box-shadow 0.2s cubic-bezier(0.25, 0.1, 0.25, 1);
     }
-    .btn-buy-main:hover { background: var(--cta-hover); }
-    .btn-buy-main:active { transform: scale(0.98); }
+    .btn-buy-main:hover { background: var(--cta-hover); transform: scale(1.02); box-shadow: 0 4px 16px rgba(0,0,0,0.12); }
+    .btn-buy-main:active { transform: scale(0.98); box-shadow: none; }
     .price-guarantee {
       font-size: 12px; color: var(--ink-light);
       margin-top: 12px; text-align: center;
@@ -413,11 +417,20 @@
     .footer-right { font-size: 13px; color: var(--ink-faint); }
 
     /* ── SCROLL REVEAL ─────────────────────────────────── */
-    .reveal { opacity: 0; transform: translateY(16px); transition: opacity 0.6s ease-out, transform 0.6s ease-out; }
+    .reveal { opacity: 0; transform: translateY(20px); transition: opacity 0.6s ease-out, transform 0.6s ease-out; }
     .reveal.visible { opacity: 1; transform: translateY(0); }
-    .reveal-d1 { transition-delay: 0.08s; }
-    .reveal-d2 { transition-delay: 0.16s; }
-    .reveal-d3 { transition-delay: 0.24s; }
+    .reveal-d1 { transition-delay: 0.15s; }
+    .reveal-d2 { transition-delay: 0.30s; }
+    .reveal-d3 { transition-delay: 0.45s; }
+
+    /* ── ARROW REVEAL ──────────────────────────────────── */
+    .arrow-reveal { opacity: 0; transform: translateX(8px); transition: opacity 0.6s ease-out, transform 0.6s ease-out; }
+    .arrow-reveal.visible { opacity: 1; transform: translateX(0); }
+
+    /* ── REDUCED MOTION ────────────────────────────────── */
+    @media (prefers-reduced-motion: reduce) {
+      * { animation: none !important; transition: none !important; }
+    }
 
     /* ── MOBILE ────────────────────────────────────────── */
     @media (max-width: 680px) {
@@ -429,6 +442,8 @@
       .price-card { padding: 32px 24px; }
       .footer-inner { flex-direction: column; text-align: center; }
       .problem-item { padding: 28px 24px; gap: 20px; }
+      .reveal { transition-duration: 0.4s; }
+      .arrow-reveal { transition-duration: 0.4s; }
     }
   </style>
 </head>
@@ -462,13 +477,13 @@
   <div class="comparison reveal reveal-d1">
     <div class="comparison-side before">
       <div class="comparison-label">Your bill now</div>
-      <div class="comparison-num before">$427</div>
+      <div class="comparison-num before" data-count="427">$427</div>
       <div class="comparison-note">per month</div>
     </div>
-    <div class="comparison-divider">→</div>
+    <div class="comparison-divider arrow-reveal">→</div>
     <div class="comparison-side after">
       <div class="comparison-label">After the fix</div>
-      <div class="comparison-num after">$54</div>
+      <div class="comparison-num after" data-count="54">$54</div>
       <div class="comparison-note">per month</div>
     </div>
   </div>
@@ -686,20 +701,74 @@
 <script>
 (function() {
 
-  /* SCROLL REVEAL */
+  var reducedMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* ── COUNT-UP ──────────────────────────────────────── */
+  function startCountUp() {
+    if (reducedMotion) return; // final values already in DOM
+    document.querySelectorAll('[data-count]').forEach(function(el) {
+      var target = parseInt(el.getAttribute('data-count'), 10);
+      var duration = 1500;
+      var startTime = null;
+      el.textContent = '$0';
+      function easeOut(t) { return 1 - Math.pow(1 - t, 3); }
+      function frame(now) {
+        if (!startTime) startTime = now;
+        var progress = Math.min((now - startTime) / duration, 1);
+        el.textContent = '$' + Math.round(easeOut(progress) * target);
+        if (progress < 1) requestAnimationFrame(frame);
+      }
+      requestAnimationFrame(frame);
+    });
+  }
+
+  /* ── HERO REVEAL (on load) ─────────────────────────── */
+  function initHeroReveal() {
+    // Double-RAF so initial opacity:0 state is painted before we add .visible
+    requestAnimationFrame(function() {
+      requestAnimationFrame(function() {
+        document.querySelectorAll('.hero .reveal').forEach(function(el) {
+          el.classList.add('visible');
+        });
+        // Arrow: fade in after comparison widget appears
+        setTimeout(function() {
+          var arrow = document.querySelector('.arrow-reveal');
+          if (arrow) arrow.classList.add('visible');
+        }, 500);
+        // Count-up: start as comparison widget fades in
+        setTimeout(startCountUp, 250);
+      });
+    });
+  }
+
+  /* ── SCROLL REVEAL ─────────────────────────────────── */
   if ('IntersectionObserver' in window) {
-    const obs = new IntersectionObserver((entries) => {
-      entries.forEach(e => {
+    var obs = new IntersectionObserver(function(entries) {
+      entries.forEach(function(e) {
         if (e.isIntersecting) {
           e.target.classList.add('visible');
           obs.unobserve(e.target);
         }
       });
-    }, { threshold: 0.08 });
-    document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+    }, { threshold: 0.2 });
+
+    document.querySelectorAll('.reveal').forEach(function(el) {
+      // Hero elements handled by initHeroReveal
+      if (el.closest('.hero')) return;
+      var rect = el.getBoundingClientRect();
+      if (rect.bottom < 0) {
+        // Already scrolled past — show instantly, no animation
+        el.style.transition = 'none';
+        el.classList.add('visible');
+      } else {
+        obs.observe(el);
+      }
+    });
   } else {
-    document.querySelectorAll('.reveal').forEach(el => el.classList.add('visible'));
+    document.querySelectorAll('.reveal').forEach(function(el) { el.classList.add('visible'); });
   }
+
+  initHeroReveal();
 
   /* EMAIL CAPTURE */
   window.revealBuyBox = function() {
