@@ -58,9 +58,13 @@
     .nav-logo {
       font-family: var(--serif); font-size: 16px; font-weight: 400;
       color: var(--ink); text-decoration: none; letter-spacing: -0.01em;
+      display: flex; align-items: center; gap: 9px;
     }
     .nav-logo em { font-style: italic; }
     .nav-logo strong { font-style: normal; font-weight: 600; }
+    .nav-droplet {
+      width: 18px; height: 22px; flex-shrink: 0;
+    }
     .nav-pill {
       font-size: 11px; font-weight: 600; color: var(--ink-mid);
       background: transparent; border: 1px solid var(--border);
@@ -452,7 +456,24 @@
 <!-- NAV -->
 <nav>
   <div class="nav-inner">
-    <a href="#" class="nav-logo"><em>Stop the</em> <strong>Bleed</strong></a>
+    <a href="#" class="nav-logo">
+      <svg class="nav-droplet" viewBox="0 0 28 36" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <radialGradient id="dg" cx="38%" cy="30%" r="68%">
+            <stop offset="0%" stop-color="#ff7a4a"/>
+            <stop offset="40%" stop-color="#d4461b"/>
+            <stop offset="100%" stop-color="#8b1a08"/>
+          </radialGradient>
+          <radialGradient id="ds" cx="30%" cy="24%" r="35%">
+            <stop offset="0%" stop-color="#ffffff" stop-opacity="0.85"/>
+            <stop offset="100%" stop-color="#ffffff" stop-opacity="0"/>
+          </radialGradient>
+        </defs>
+        <path d="M14 1 C14 1 2 13 2 21 C2 28.18 7.37 34 14 34 C20.63 34 26 28.18 26 21 C26 13 14 1 14 1Z" fill="url(#dg)"/>
+        <ellipse cx="10" cy="12" rx="5" ry="7" fill="url(#ds)" transform="rotate(-18 10 12)"/>
+      </svg>
+      <em>Stop the</em> <strong>Bleed</strong>
+    </a>
     <span class="nav-pill">$9 fix</span>
   </div>
 </nav>
