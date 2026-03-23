@@ -31,7 +31,7 @@ export default async function handler(req, res) {
     }
 
     // Serve the zip
-    const zipPath = join(process.cwd(), 'public', 'stop-the-bleed-kit.zip');
+    const zipPath = join(process.cwd(), 'private', 'stop-the-bleed-kit.zip');
     let zipBuffer;
     try {
       zipBuffer = readFileSync(zipPath);

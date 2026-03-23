@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 280 60" width="280" height="60">
+  <defs>
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&amp;family=DM+Sans:wght@400&amp;display=swap');
+      .wordmark { font-family: 'Playfair Display', Georgia, serif; font-weight: 700; font-size: 32px; fill: #0d0d0d; }
+      .dot { font-family: 'Playfair Display', Georgia, serif; font-weight: 700; font-size: 32px; fill: #d4461b; }
+      .tld { font-family: 'DM Sans', -apple-system, sans-serif; font-weight: 400; font-size: 14px; fill: #8a8a8a; letter-spacing: 0.04em; }
+    </style>
+  </defs>
+  <!-- Droplet icon -->
+  <path d="M14 8 C14 8 6 18 6 24 C6 30.627 9.373 34 14 34 C18.627 34 22 30.627 22 24 C22 18 14 8 14 8 Z" fill="#d4461b"/>
+  <!-- Wordmark -->
+  <text x="32" y="38" class="wordmark">clawdkit</text>
+  <text x="32" y="55" class="tld">.app</text>
+</svg>

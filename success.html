@@ -169,11 +169,20 @@
 </footer>
 
 <script>
-  // Always link directly to the zip — Stripe verification happens server-side via webhook
-  // The webhook already confirmed payment and sent the email
+  const params = new URLSearchParams(window.location.search);
+  const sessionId = params.get('session_id');
   const btn = document.getElementById('downloadBtn');
-  btn.href = '/public/stop-the-bleed-kit.zip';
-  btn.setAttribute('download', 'stop-the-bleed-kit.zip');
+
+  if (sessionId && sessionId.startsWith('cs_')) {
+    // Valid Stripe session — wire up download
+    btn.href = '/api/download?session=' + encodeURIComponent(sessionId);
+    btn.textContent = 'Download Your Kit →';
+  } else {
+    // No valid session — hide button, show message
+    btn.style.display = 'none';
+    const note = document.querySelector('.download-note');
+    note.innerHTML = 'Check your email for the download link. Questions? <a href="mailto:max@clawdkit.app" style="color:var(--accent)">max@clawdkit.app</a>';
+  }
 </script>
 </body>
 </html>
