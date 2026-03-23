@@ -32,6 +32,7 @@
     }
   ],
   "rewrites": [
-    { "source": "/subscribe", "destination": "/api/subscribe" }
+    { "source": "/subscribe", "destination": "/api/subscribe" },
+    { "source": "/success", "destination": "/success.html" }
   ]
 }
