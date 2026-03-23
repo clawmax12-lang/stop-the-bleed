@@ -421,15 +421,15 @@
     .footer-right { font-size: 13px; color: var(--ink-faint); }
 
     /* ── SCROLL REVEAL ─────────────────────────────────── */
-    .reveal { opacity: 0; transform: translateY(20px); transition: opacity 0.6s ease-out, transform 0.6s ease-out; }
-    .reveal.visible { opacity: 1; transform: translateY(0); }
+    .reveal { opacity: 0; transform: translateY(20px) translateZ(0); transition: opacity 0.6s ease-out, transform 0.6s ease-out; will-change: opacity, transform; }
+    .reveal.visible { opacity: 1; transform: translateY(0) translateZ(0); }
     .reveal-d1 { transition-delay: 0.15s; }
     .reveal-d2 { transition-delay: 0.30s; }
     .reveal-d3 { transition-delay: 0.45s; }
 
     /* ── ARROW REVEAL ──────────────────────────────────── */
-    .arrow-reveal { opacity: 0; transform: translateX(8px); transition: opacity 0.6s ease-out, transform 0.6s ease-out; }
-    .arrow-reveal.visible { opacity: 1; transform: translateX(0); }
+    .arrow-reveal { opacity: 0; transform: translateX(8px) translateZ(0); transition: opacity 0.6s ease-out, transform 0.6s ease-out; will-change: opacity, transform; }
+    .arrow-reveal.visible { opacity: 1; transform: translateX(0) translateZ(0); }
 
     /* ── REDUCED MOTION ────────────────────────────────── */
     @media (prefers-reduced-motion: reduce) {
@@ -448,6 +448,15 @@
       .problem-item { padding: 28px 24px; gap: 20px; }
       .reveal { transition-duration: 0.4s; }
       .arrow-reveal { transition-duration: 0.4s; }
+    }
+
+    /* ── VERY SMALL SCREENS (320–390px) ─────────────────── */
+    @media (max-width: 400px) {
+      .comparison-side { padding: 24px 16px; }
+      .comparison-num { font-size: 44px; }
+      .comparison-divider { padding: 0 10px; font-size: 12px; }
+      .inside-item { padding: 32px 24px; }
+      .hero-cta { flex-direction: column; align-items: flex-start; gap: 12px; }
     }
   </style>
 </head>
@@ -718,17 +727,16 @@
     if (reducedMotion) return; // final values already in DOM
     document.querySelectorAll('[data-count]').forEach(function(el) {
       var target = parseInt(el.getAttribute('data-count'), 10);
-      // Keep final value in DOM (for no-JS / reduced-motion), 
-      // but hide the element so the count-up appears clean
-      el.style.visibility = 'hidden';
-      var duration = window.innerWidth < 680 ? 1000 : 1500;
+      // Final value stays in DOM — no hiding. If JS is delayed/blocked
+      // on iOS Safari the user simply sees the real number.
+      // Count-up overwrites from $0 as soon as rAF fires.
+      var duration = window.innerWidth < 680 ? 900 : 1500;
       var startTime = null;
       function easeOut(t) { return 1 - Math.pow(1 - t, 3); }
       function frame(now) {
         if (!startTime) startTime = now;
         var progress = Math.min((now - startTime) / duration, 1);
         el.textContent = '$' + Math.round(easeOut(progress) * target);
-        el.style.visibility = 'visible';
         if (progress < 1) requestAnimationFrame(frame);
       }
       requestAnimationFrame(frame);
@@ -763,7 +771,7 @@
           obs.unobserve(e.target);
         }
       });
-    }, { threshold: 0.2 });
+    }, { threshold: 0.1 });
 
     document.querySelectorAll('.reveal').forEach(function(el) {
       // Hero elements handled by initHeroReveal
