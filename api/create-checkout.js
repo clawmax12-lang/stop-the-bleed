@@ -25,16 +25,16 @@ export default async function handler(req, res) {
           price_data: {
             currency: 'usd',
             product_data: {
-              name: 'The Solopreneur Pack',
-              description: 'Model router skill · Cost audit workflow · Heartbeat optimizer · Context TTL guide · Prompt compression templates',
+              name: 'Stop the Bleed — OpenClaw Cost Kit',
+              description: 'Config file · 11-page guide · Background fix. Drops your bill to under $60/month in 30 minutes.',
             },
-            unit_amount: 4900, // $49.00 in cents
+            unit_amount: 900, // $9.00
           },
           quantity: 1,
         },
       ],
-      success_url: 'https://stop-the-bleed.vercel.app/success',
-      cancel_url: 'https://stop-the-bleed.vercel.app',
+      success_url: `${req.headers.origin || 'https://stop-the-bleed.vercel.app'}/success?session_id={CHECKOUT_SESSION_ID}`,
+      cancel_url: `${req.headers.origin || 'https://stop-the-bleed.vercel.app'}`,
     });
 
     return res.status(200).json({ url: session.url });

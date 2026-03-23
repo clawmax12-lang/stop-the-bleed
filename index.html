@@ -349,6 +349,57 @@
       margin-top: 12px; text-align: center;
     }
 
+    /* ── EMAIL CAPTURE ─────────────────────────────────── */
+    .email-capture {
+      background: #fff; border-radius: 10px;
+      padding: 40px 36px; text-align: left;
+      margin-bottom: 0;
+    }
+    .email-capture-label {
+      font-family: var(--serif); font-size: clamp(18px, 2.4vw, 26px);
+      font-weight: 400; letter-spacing: -0.02em; line-height: 1.2;
+      color: var(--ink); margin-bottom: 8px;
+    }
+    .email-capture-sub {
+      font-size: 14px; color: var(--ink-light); margin-bottom: 24px; line-height: 1.6;
+    }
+    .email-capture-row {
+      display: flex; gap: 10px; flex-wrap: wrap;
+    }
+    .email-capture-input {
+      flex: 1; min-width: 0;
+      padding: 12px 16px;
+      font-family: var(--sans); font-size: 15px; color: var(--ink);
+      background: var(--paper-tint);
+      border: 1px solid var(--border); border-radius: 7px;
+      outline: none; transition: border-color 0.15s;
+    }
+    .email-capture-input:focus { border-color: var(--accent); }
+    .email-capture-input::placeholder { color: var(--ink-faint); }
+    .btn-capture {
+      display: inline-flex; align-items: center; white-space: nowrap;
+      padding: 12px 22px;
+      background: var(--accent); color: #fff;
+      font-family: var(--sans); font-size: 15px; font-weight: 600;
+      letter-spacing: -0.01em;
+      border: none; border-radius: 7px; cursor: pointer;
+      transition: background 0.15s, transform 0.1s;
+    }
+    .btn-capture:hover { background: var(--accent-mid); }
+    .btn-capture:active { transform: scale(0.98); }
+    .email-capture-skip {
+      display: block; margin-top: 14px;
+      font-size: 12px; color: var(--ink-faint);
+      background: none; border: none; cursor: pointer;
+      text-decoration: underline; padding: 0;
+      font-family: var(--sans);
+      transition: color 0.15s;
+    }
+    .email-capture-skip:hover { color: var(--ink-light); }
+    .email-capture-msg {
+      font-size: 13px; color: var(--ink-mid); margin-top: 10px; display: none;
+    }
+
     /* ── FOOTER ────────────────────────────────────────── */
     footer { border-top: 1px solid var(--border); padding: 28px 24px; }
     .footer-inner {
@@ -581,7 +632,18 @@
       If it doesn't cut your bill, reply to the receipt and we'll refund you.
     </p>
 
-    <div class="price-card reveal">
+    <div id="emailCapture" class="email-capture reveal">
+      <div class="email-capture-label">Get the free savings calculator first</div>
+      <div class="email-capture-sub">See exactly how much you will save — then decide.</div>
+      <div class="email-capture-row">
+        <input id="captureEmail" class="email-capture-input" type="email" placeholder="you@example.com" autocomplete="email" />
+        <button class="btn-capture" onclick="handleCapture()">Send me the calculator →</button>
+      </div>
+      <div id="captureMsg" class="email-capture-msg"></div>
+      <button class="email-capture-skip" onclick="revealBuyBox()">Skip — just buy the kit</button>
+    </div>
+
+    <div id="priceCard" class="price-card reveal" style="display:none;">
       <div class="price-amount"><sup>$</sup>9</div>
       <div class="price-once">One-time · Instant download</div>
       <ul class="price-list">
@@ -625,6 +687,41 @@
   } else {
     document.querySelectorAll('.reveal').forEach(el => el.classList.add('visible'));
   }
+
+  /* EMAIL CAPTURE */
+  window.revealBuyBox = function() {
+    document.getElementById('emailCapture').style.display = 'none';
+    const card = document.getElementById('priceCard');
+    card.style.display = 'block';
+    card.classList.add('visible');
+  };
+
+  window.handleCapture = async function() {
+    const input = document.getElementById('captureEmail');
+    const msg = document.getElementById('captureMsg');
+    const btn = document.querySelector('.btn-capture');
+    const email = input.value.trim();
+
+    if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+      msg.textContent = 'Please enter a valid email address.';
+      msg.style.display = 'block';
+      msg.style.color = 'var(--accent)';
+      return;
+    }
+
+    btn.textContent = 'Sending…';
+    btn.disabled = true;
+
+    try {
+      await fetch('/api/subscribe', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email }),
+      });
+    } catch (_) { /* fire and forget */ }
+
+    window.revealBuyBox();
+  };
 
   /* CHECKOUT */
   window.handleCheckout = async function() {
