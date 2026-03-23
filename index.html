@@ -431,6 +431,223 @@
     .arrow-reveal { opacity: 0; transform: translateX(8px) translateZ(0); transition: opacity 0.6s ease-out, transform 0.6s ease-out; will-change: opacity, transform; }
     .arrow-reveal.visible { opacity: 1; transform: translateX(0) translateZ(0); }
 
+    /* ── BILL METER ────────────────────────────────────── */
+    .bill-meter {
+      max-width: 520px; margin: 0 0 28px;
+      background: #111; border-radius: 12px; padding: 24px 28px 22px;
+    }
+    .meter-live-badge {
+      display: inline-flex; align-items: center; gap: 6px;
+      font-size: 10px; font-weight: 700; color: #ef4444;
+      text-transform: uppercase; letter-spacing: 0.12em; margin-bottom: 10px;
+    }
+    .meter-live-dot {
+      width: 6px; height: 6px; border-radius: 50%; background: #ef4444;
+      animation: meterBlink 1s ease-in-out infinite;
+    }
+    @keyframes meterBlink { 0%,100%{opacity:1} 50%{opacity:0.15} }
+    .meter-sublabel {
+      font-size: 11px; color: rgba(255,255,255,0.32);
+      text-transform: uppercase; letter-spacing: 0.09em; margin-bottom: 8px;
+    }
+    .meter-number {
+      font-family: var(--serif); font-size: clamp(52px, 9vw, 82px);
+      font-weight: 300; color: #ef4444; line-height: 1;
+      letter-spacing: -0.04em; transition: color 0.5s;
+    }
+    .meter-number.meter-stopped {
+      color: rgba(255,255,255,0.22);
+      text-decoration: line-through; text-decoration-thickness: 4px;
+      text-decoration-color: rgba(255,255,255,0.45);
+    }
+    .meter-drop {
+      font-family: var(--serif); font-size: clamp(52px, 9vw, 82px);
+      font-weight: 300; color: var(--green); line-height: 1;
+      letter-spacing: -0.04em; max-height: 0; overflow: hidden;
+      opacity: 0; transition: max-height 0.5s ease, opacity 0.6s ease 0.1s;
+    }
+    .meter-drop.show { max-height: 120px; opacity: 1; }
+    .meter-note {
+      font-size: 12px; color: rgba(255,255,255,0.2);
+      margin-top: 14px; transition: color 0.5s;
+    }
+    .meter-note.meter-fixed { color: rgba(100,200,130,0.55); }
+
+    /* ── VISUAL COMPARE (before/after timeline) ─────────── */
+    .visual-compare {
+      background: var(--paper-warm);
+      border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);
+      padding: 72px 24px;
+    }
+    .vc-inner { max-width: 880px; margin: 0 auto; }
+    .vc-title {
+      font-size: 11px; font-weight: 700; color: var(--ink-light);
+      text-transform: uppercase; letter-spacing: 0.1em;
+      margin-bottom: 40px; text-align: center;
+    }
+    .vc-grid {
+      display: grid; grid-template-columns: 1fr 1px 1fr; gap: 0 52px;
+    }
+    @media (max-width: 640px) {
+      .vc-grid { grid-template-columns: 1fr; gap: 40px; }
+      .vc-divider { display: none; }
+    }
+    .vc-divider { background: var(--border); }
+    .vc-col-head {
+      font-size: 11px; font-weight: 700; text-transform: uppercase;
+      letter-spacing: 0.09em; margin-bottom: 18px;
+      display: flex; align-items: center; gap: 8px;
+    }
+    .vc-col.before .vc-col-head { color: var(--red-muted); }
+    .vc-col.after  .vc-col-head { color: var(--green); }
+    .vc-col-dot { width: 7px; height: 7px; border-radius: 50%; }
+    .vc-col.before .vc-col-dot { background: var(--red-muted); }
+    .vc-col.after  .vc-col-dot { background: var(--green); }
+    .vc-rows { display: flex; flex-direction: column; gap: 10px; }
+    .vc-row {
+      display: flex; align-items: center; gap: 14px;
+      padding: 14px 18px; background: var(--paper);
+      border: 1px solid var(--border); border-radius: 8px;
+    }
+    .vc-col.after .vc-row { background: #f5fbf7; border-color: #cde8d8; }
+    .vc-icon { width: 34px; height: 34px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; color: var(--ink-mid); }
+    .vc-col.after .vc-icon { color: var(--green); }
+    .vc-row-text { font-size: 13px; color: var(--ink-mid); line-height: 1.5; }
+    .vc-row-text strong { display: block; color: var(--ink); font-weight: 600; font-size: 13px; margin-bottom: 1px; }
+    @keyframes spinFast { to { transform: rotate(360deg); } }
+    @keyframes spinSlow  { to { transform: rotate(360deg); } }
+    @keyframes stackPulse { 0%,100%{transform:scaleY(1)} 50%{transform:scaleY(1.09) translateY(-2px)} }
+    @keyframes drainPulse { 0%{transform:translateY(0);opacity:1} 55%{transform:translateY(7px);opacity:0.25} 100%{transform:translateY(0);opacity:1} }
+    @keyframes gentleBob { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-2px)} }
+    .spin-fast  { animation: spinFast 0.75s linear infinite; transform-origin: center; }
+    .spin-slow  { animation: spinSlow 5s linear infinite; transform-origin: center; }
+    .stack-grow { animation: stackPulse 1.1s ease-in-out infinite; transform-origin: bottom center; }
+    .drain-drop { animation: drainPulse 1.3s ease-in-out infinite; }
+    .bob-gentle { animation: gentleBob 3.5s ease-in-out infinite; }
+
+    /* ── CODE PREVIEW ───────────────────────────────────── */
+    .code-preview {
+      margin-top: 44px; border-radius: 10px; overflow: hidden;
+      border: 1px solid #2d333b;
+      box-shadow: 0 4px 24px rgba(0,0,0,0.10);
+      font-family: 'SF Mono', ui-monospace, 'Cascadia Code', 'Fira Mono', monospace;
+    }
+    .cp-header {
+      background: #22272e; padding: 11px 16px;
+      display: flex; align-items: center; gap: 10px;
+      border-bottom: 1px solid #2d333b;
+    }
+    .cp-dots { display: flex; gap: 6px; }
+    .cp-dot { width: 11px; height: 11px; border-radius: 50%; }
+    .cp-dot.r { background: #ff5f57; } .cp-dot.y { background: #febc2e; } .cp-dot.g { background: #28c840; }
+    .cp-fname { font-size: 12px; color: rgba(255,255,255,0.32); font-family: inherit; margin-left: 4px; }
+    .cp-body {
+      background: #1c2128; padding: 24px 28px;
+      margin: 0; line-height: 2; font-size: 13.5px;
+      overflow-x: auto; white-space: pre;
+    }
+    .ck { color: #8b949e; }
+    .ky { color: #79c0ff; font-weight: 600; }
+    .ar { color: #ffa657; }
+    .mn { color: #a5d6ff; }
+    .pc { color: #3fb950; }
+
+    /* ── MORNING BRIEF MOCKUP ───────────────────────────── */
+    .brief-wrap { margin-top: 44px; max-width: 520px; }
+    .brief-eyebrow {
+      font-size: 11px; font-weight: 700; color: var(--ink-light);
+      text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 14px;
+    }
+    .brief-card {
+      border-radius: 12px; overflow: hidden;
+      border: 1px solid var(--border);
+      box-shadow: 0 8px 32px rgba(0,0,0,0.07);
+    }
+    .brief-tbar {
+      background: #f0f0ee; border-bottom: 1px solid var(--border);
+      padding: 10px 16px; display: flex; align-items: center; gap: 10px;
+    }
+    .brief-tdots { display: flex; gap: 5px; }
+    .brief-tdot { width: 10px; height: 10px; border-radius: 50%; }
+    .brief-tdot.r { background: #ff5f57; } .brief-tdot.y { background: #febc2e; } .brief-tdot.g { background: #28c840; }
+    .brief-ttitle {
+      flex: 1; text-align: center; font-size: 12px;
+      color: var(--ink-light); font-family: -apple-system, sans-serif;
+    }
+    .brief-body { background: #fff; padding: 26px 30px; }
+    .brief-greeting {
+      font-family: var(--serif); font-size: 17px; font-weight: 400;
+      color: var(--ink); margin-bottom: 16px;
+    }
+    .brief-list { display: flex; flex-direction: column; gap: 8px; list-style: none; }
+    .brief-item {
+      display: flex; gap: 10px; align-items: flex-start;
+      font-size: 14px; color: var(--ink-mid); line-height: 1.55;
+    }
+    .brief-bullet { color: var(--green); font-weight: 700; flex-shrink: 0; }
+    .brief-urgent { color: var(--red-muted); font-weight: 600; }
+    .brief-sbar {
+      background: var(--paper-tint); border-top: 1px solid var(--border);
+      padding: 9px 30px; display: flex; justify-content: space-between; align-items: center;
+    }
+    .brief-sbar-time { font-size: 12px; color: var(--ink-faint); }
+    .brief-sbar-cost { font-size: 11px; font-weight: 700; color: var(--green); }
+
+    /* ── SAVINGS CALCULATOR ─────────────────────────────── */
+    .calc-section {
+      background: var(--paper-tint);
+      border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);
+      padding: 72px 24px;
+    }
+    .calc-wrap { max-width: 560px; margin: 0 auto; }
+    .calc-h {
+      font-family: var(--serif); font-size: clamp(22px, 3vw, 33px);
+      font-weight: 400; letter-spacing: -0.02em; line-height: 1.15;
+      color: var(--ink); margin-bottom: 6px;
+    }
+    .calc-h em { font-style: italic; }
+    .calc-desc {
+      font-size: 15px; color: var(--ink-light); line-height: 1.7;
+      font-weight: 300; margin-bottom: 36px; max-width: 400px;
+    }
+    .calc-row {
+      display: flex; align-items: center; gap: 12px;
+      flex-wrap: wrap; margin-bottom: 28px;
+    }
+    .calc-label { font-size: 15px; color: var(--ink-mid); }
+    .calc-input {
+      font-family: var(--serif); font-size: 34px;
+      font-weight: 300; color: var(--ink);
+      background: var(--paper); border: 2px solid var(--ink);
+      border-radius: 7px; padding: 6px 14px; width: 130px;
+      letter-spacing: -0.02em; outline: none;
+      -moz-appearance: textfield;
+      transition: box-shadow 0.15s;
+    }
+    .calc-input:focus { box-shadow: 0 0 0 3px rgba(13,13,13,0.08); }
+    .calc-input::-webkit-inner-spin-button,
+    .calc-input::-webkit-outer-spin-button { -webkit-appearance: none; }
+    .calc-suffix { font-size: 15px; color: var(--ink-light); }
+    .calc-out {
+      display: grid; grid-template-columns: repeat(3, 1fr);
+      gap: 2px; background: var(--border);
+      border: 1px solid var(--border); border-radius: 10px; overflow: hidden;
+    }
+    @media (max-width: 480px) { .calc-out { grid-template-columns: 1fr; } }
+    .calc-out-cell { background: var(--paper); padding: 22px 20px; }
+    .calc-out-lbl {
+      font-size: 10px; font-weight: 700; color: var(--ink-light);
+      text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 8px;
+    }
+    .calc-out-val {
+      font-family: var(--serif); font-size: 26px;
+      font-weight: 300; letter-spacing: -0.03em; color: var(--ink);
+    }
+    .calc-out-val.green { color: var(--green); }
+    .calc-note-sm {
+      font-size: 12px; color: var(--ink-faint); margin-top: 14px; line-height: 1.7;
+    }
+
     /* ── REDUCED MOTION ────────────────────────────────── */
     @media (prefers-reduced-motion: reduce) {
       * { animation: none !important; transition: none !important; }
@@ -503,6 +720,14 @@
     The 30-minute fix that saves you $300+ every month.
     One file. Drop it in. Bill drops overnight.
   </p>
+
+  <div class="bill-meter reveal reveal-d1" id="billMeter" aria-hidden="true">
+    <div class="meter-live-badge"><span class="meter-live-dot"></span> Live</div>
+    <div class="meter-sublabel">API usage this month</div>
+    <div class="meter-number" id="meterNum">$0</div>
+    <div class="meter-drop" id="meterDrop">$54</div>
+    <div class="meter-note" id="meterNote">watching your bill grow&hellip;</div>
+  </div>
 
   <div class="comparison reveal reveal-d1">
     <div class="comparison-side before">
@@ -611,6 +836,113 @@
 
 <hr class="rule" />
 
+<!-- BEFORE / AFTER VISUAL COMPARE -->
+<div class="visual-compare">
+  <div class="vc-inner reveal">
+    <div class="vc-title">What changes when you apply the fix</div>
+    <div class="vc-grid">
+
+      <!-- BEFORE -->
+      <div class="vc-col before">
+        <div class="vc-col-head">
+          <span class="vc-col-dot"></span>
+          Default OpenClaw setup
+        </div>
+        <div class="vc-rows">
+          <div class="vc-row">
+            <div class="vc-icon">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="9"/>
+                <path class="spin-fast" d="M12 7v5l3 3" style="transform-origin:12px 12px"/>
+              </svg>
+            </div>
+            <div class="vc-row-text">
+              <strong>Heartbeat every 15 min</strong>
+              Checks in constantly — all night, every night
+            </div>
+          </div>
+          <div class="vc-row">
+            <div class="vc-icon">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round">
+                <rect class="stack-grow" x="4" y="14" width="16" height="3" rx="1" style="transform-origin:12px 17px"/>
+                <rect x="4" y="9" width="16" height="3" rx="1"/>
+                <rect x="4" y="4" width="16" height="3" rx="1"/>
+              </svg>
+            </div>
+            <div class="vc-row-text">
+              <strong>Full history re-read every time</strong>
+              Pays for the same words over and over
+            </div>
+          </div>
+          <div class="vc-row">
+            <div class="vc-icon">
+              <svg class="drain-drop" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round">
+                <path d="M12 2v8M8 6l4-4 4 4"/>
+                <circle cx="12" cy="16" r="5"/>
+                <path d="M9.5 15.5l1.5 1.5 3-3"/>
+              </svg>
+            </div>
+            <div class="vc-row-text">
+              <strong>Top-tier AI for every task</strong>
+              Sending a reminder costs the same as writing an essay
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="vc-divider"></div>
+
+      <!-- AFTER -->
+      <div class="vc-col after">
+        <div class="vc-col-head">
+          <span class="vc-col-dot"></span>
+          After the fix
+        </div>
+        <div class="vc-rows">
+          <div class="vc-row">
+            <div class="vc-icon">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="9"/>
+                <path class="spin-slow" d="M12 7v5l3 3" style="transform-origin:12px 12px"/>
+              </svg>
+            </div>
+            <div class="vc-row-text">
+              <strong>Smart schedule, not constant</strong>
+              Checks when there's work to do — and sleeps when there isn't
+            </div>
+          </div>
+          <div class="vc-row">
+            <div class="vc-icon">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round">
+                <rect x="4" y="9" width="16" height="3" rx="1"/>
+                <rect x="4" y="4" width="16" height="3" rx="1"/>
+                <path d="M4 17h8"/>
+              </svg>
+            </div>
+            <div class="vc-row-text">
+              <strong>Context trimmed, costs contained</strong>
+              One setting stops the history from piling up
+            </div>
+          </div>
+          <div class="vc-row">
+            <div class="vc-icon">
+              <svg class="bob-gentle" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round">
+                <path d="M12 22V10M8 14l4-4 4 4"/>
+                <circle cx="12" cy="6" r="3"/>
+              </svg>
+            </div>
+            <div class="vc-row-text">
+              <strong>Right AI for the right task</strong>
+              Simple tasks go cheap. Complex work gets the good model.
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
 <!-- SOLUTION -->
 <section class="section">
   <div class="section-tag reveal">The fix</div>
@@ -636,6 +968,46 @@
       <div class="step">
         <div class="step-num">3</div>
         <div class="step-text"><strong>Let it run overnight.</strong> Check your usage the next morning. You'll see the difference.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MORNING BRIEF MOCKUP -->
+  <div class="brief-wrap reveal">
+    <div class="brief-eyebrow">What your morning looks like after</div>
+    <div class="brief-card">
+      <div class="brief-tbar">
+        <div class="brief-tdots">
+          <span class="brief-tdot r"></span>
+          <span class="brief-tdot y"></span>
+          <span class="brief-tdot g"></span>
+        </div>
+        <div class="brief-ttitle">OpenClaw — Morning Brief</div>
+      </div>
+      <div class="brief-body">
+        <div class="brief-greeting">Good morning. Here is your day:</div>
+        <ul class="brief-list">
+          <li class="brief-item">
+            <span class="brief-bullet">•</span>
+            3 emails need replies <span class="brief-urgent">(2 urgent)</span>
+          </li>
+          <li class="brief-item">
+            <span class="brief-bullet">•</span>
+            Invoice #42: follow up today — 14 days overdue
+          </li>
+          <li class="brief-item">
+            <span class="brief-bullet">•</span>
+            Client meeting at 14:00 — prep brief ready
+          </li>
+          <li class="brief-item">
+            <span class="brief-bullet">•</span>
+            No new tasks added while you slept
+          </li>
+        </ul>
+      </div>
+      <div class="brief-sbar">
+        <div class="brief-sbar-time">Today · 07:14</div>
+        <div class="brief-sbar-cost">Cost this morning: $0.003</div>
       </div>
     </div>
   </div>
@@ -665,7 +1037,54 @@
       <div class="inside-desc">One line that stops your agent from running expensive checks every 15 minutes. Most people see 40–60% of their bill disappear from this alone.</div>
     </div>
   </div>
+
+  <!-- CONFIG FILE PREVIEW -->
+  <div class="code-preview reveal">
+    <div class="cp-header">
+      <div class="cp-dots">
+        <span class="cp-dot r"></span>
+        <span class="cp-dot y"></span>
+        <span class="cp-dot g"></span>
+      </div>
+      <span class="cp-fname">AGENTS.md — model routing config</span>
+    </div>
+    <pre class="cp-body"><span class="ck">## Model Routing</span>
+<span class="ky">Heartbeat</span>  <span class="ar">→</span>  <span class="mn">claude-haiku-4-5</span>   <span class="pc">($0.50/MTok)</span>   <span class="ck"># status checks, reminders</span>
+<span class="ky">Research</span>   <span class="ar">→</span>  <span class="mn">claude-haiku-4-5</span>   <span class="pc">($0.50/MTok)</span>   <span class="ck"># reading, summarising</span>
+<span class="ky">Writing</span>    <span class="ar">→</span>  <span class="mn">claude-sonnet-4-6</span>  <span class="pc">($9.00/MTok)</span>   <span class="ck"># drafts, complex reasoning</span>
+
+<span class="ck">## Heartbeat Schedule</span>
+<span class="ky">interval</span>   <span class="ar">→</span>  <span class="mn">on-event</span>           <span class="pc">(was: every 15 min)</span></pre>
+  </div>
 </section>
+
+<!-- SAVINGS CALCULATOR -->
+<div class="calc-section">
+  <div class="calc-wrap reveal">
+    <div class="calc-h">See your <em>exact</em> saving</div>
+    <p class="calc-desc">Type in your current bill. No email required.</p>
+    <div class="calc-row">
+      <span class="calc-label">My current bill: $</span>
+      <input class="calc-input" type="number" id="calcInput" value="427" min="0" max="99999" aria-label="Current monthly bill in dollars" />
+      <span class="calc-suffix">/month</span>
+    </div>
+    <div class="calc-out">
+      <div class="calc-out-cell">
+        <div class="calc-out-lbl">After fix</div>
+        <div class="calc-out-val" id="calcAfter">$54</div>
+      </div>
+      <div class="calc-out-cell">
+        <div class="calc-out-lbl">Monthly saving</div>
+        <div class="calc-out-val green" id="calcSaving">$373</div>
+      </div>
+      <div class="calc-out-cell">
+        <div class="calc-out-lbl">Yearly saving</div>
+        <div class="calc-out-val green" id="calcYearly">$4,476</div>
+      </div>
+    </div>
+    <p class="calc-note-sm">Based on the same reduction ratio: $427 → $54 (87% drop). Your result depends on your actual setup — most people land between 75–90%.</p>
+  </div>
+</div>
 
 <!-- TESTIMONIAL -->
 <div class="testimonial-section">
@@ -758,6 +1177,8 @@
         }, 500);
         // Count-up: start as comparison widget fades in
         setTimeout(startCountUp, 250);
+        // Bill meter: start ticking
+        setTimeout(initBillMeter, 400);
       });
     });
   }
@@ -825,6 +1246,78 @@
 
     window.revealBuyBox();
   };
+
+  /* BILL METER ANIMATION */
+  function initBillMeter() {
+    var numEl = document.getElementById('meterNum');
+    var dropEl = document.getElementById('meterDrop');
+    var noteEl = document.getElementById('meterNote');
+    if (!numEl) return;
+
+    if (reducedMotion) {
+      numEl.textContent = '$427';
+      numEl.classList.add('meter-stopped');
+      if (dropEl) dropEl.classList.add('show');
+      if (noteEl) { noteEl.textContent = 'Fixed. $54/month.'; noteEl.classList.add('meter-fixed'); }
+      return;
+    }
+
+    var target = 427;
+    var start = null;
+    var duration = 1900;
+
+    function easeIn(t) { return t * t; }
+
+    function countUp(ts) {
+      if (!start) start = ts;
+      var progress = Math.min((ts - start) / duration, 1);
+      var val = Math.round(easeIn(progress) * target);
+      numEl.textContent = '$' + val;
+      if (progress < 1) {
+        requestAnimationFrame(countUp);
+      } else {
+        numEl.textContent = '$427';
+        // Pause, then strikethrough
+        setTimeout(function() {
+          numEl.classList.add('meter-stopped');
+          if (noteEl) noteEl.textContent = 'stopped. now watch this.';
+          setTimeout(function() {
+            if (dropEl) dropEl.classList.add('show');
+            if (noteEl) { noteEl.textContent = 'Fixed. $54/month.'; noteEl.classList.add('meter-fixed'); }
+          }, 700);
+        }, 500);
+      }
+    }
+    requestAnimationFrame(countUp);
+  }
+
+  /* SAVINGS CALCULATOR */
+  function initCalculator() {
+    var input = document.getElementById('calcInput');
+    if (!input) return;
+    var ratio = 54 / 427; // the reduction ratio from the real example
+
+    function fmt(n) { return '$' + n.toLocaleString('en-US'); }
+
+    function update() {
+      var bill = parseFloat(input.value);
+      if (isNaN(bill) || bill < 0) bill = 0;
+      var after = Math.max(Math.round(bill * ratio), bill > 0 ? 2 : 0);
+      var saving = Math.max(0, bill - after);
+      var yearly = saving * 12;
+      var afterEl  = document.getElementById('calcAfter');
+      var savingEl = document.getElementById('calcSaving');
+      var yearlyEl = document.getElementById('calcYearly');
+      if (afterEl)  afterEl.textContent  = fmt(after);
+      if (savingEl) savingEl.textContent = fmt(saving);
+      if (yearlyEl) yearlyEl.textContent = fmt(yearly);
+    }
+
+    input.addEventListener('input', update);
+    update();
+  }
+
+  initCalculator();
 
   /* CHECKOUT */
   window.handleCheckout = async function() {
