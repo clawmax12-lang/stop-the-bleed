@@ -708,14 +708,17 @@
     if (reducedMotion) return; // final values already in DOM
     document.querySelectorAll('[data-count]').forEach(function(el) {
       var target = parseInt(el.getAttribute('data-count'), 10);
-      var duration = 1500;
+      // Keep final value in DOM (for no-JS / reduced-motion), 
+      // but hide the element so the count-up appears clean
+      el.style.visibility = 'hidden';
+      var duration = window.innerWidth < 680 ? 1000 : 1500;
       var startTime = null;
-      el.textContent = '$0';
       function easeOut(t) { return 1 - Math.pow(1 - t, 3); }
       function frame(now) {
         if (!startTime) startTime = now;
         var progress = Math.min((now - startTime) / duration, 1);
         el.textContent = '$' + Math.round(easeOut(progress) * target);
+        el.style.visibility = 'visible';
         if (progress < 1) requestAnimationFrame(frame);
       }
       requestAnimationFrame(frame);
