@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Stop the Bleed — Cut Your OpenClaw Bill to Under $60/Month</title>
   <meta name="description" content="Your OpenClaw bill was $400. One config file drops it to under $60. Takes 30 minutes. $9." />
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cpath d='M16 2C16 2 6 14 6 20a10 10 0 0 0 20 0C26 14 16 2 16 2z' fill='%23d4461b'/%3E%3C/svg%3E" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,700&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet" />
@@ -13,16 +14,17 @@
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
-      --ink:        #111111;
+      --ink:        #0d0d0d;
       --ink-mid:    #555555;
       --ink-light:  #909090;
       --ink-faint:  #c8c8c8;
       --paper:      #ffffff;
       --paper-warm: #fafaf8;
       --paper-tint: #f4f4f0;
-      --accent:     #c8391a;
-      --accent-mid: #a62f14;
-      --accent-bg:  #fdf1ee;
+      --green:      #3d8b5e;
+      --red-muted:  #8a6a6a;
+      --cta:        #0d0d0d;
+      --cta-hover:  #1a1a1a;
       --border:     #e6e6e2;
       --serif:      'Playfair Display', Georgia, serif;
       --sans:       'Montserrat', -apple-system, sans-serif;
@@ -60,8 +62,8 @@
     .nav-logo em { font-style: italic; }
     .nav-logo strong { font-style: normal; font-weight: 600; }
     .nav-pill {
-      font-size: 11px; font-weight: 600; color: var(--accent);
-      background: var(--accent-bg); border: 1px solid rgba(200,57,26,0.2);
+      font-size: 11px; font-weight: 600; color: var(--ink-mid);
+      background: transparent; border: 1px solid var(--border);
       padding: 4px 12px; border-radius: 100px; letter-spacing: 0.04em;
       text-transform: uppercase;
     }
@@ -69,16 +71,16 @@
     /* ── HERO ──────────────────────────────────────────── */
     .hero {
       max-width: 960px; margin: 0 auto;
-      padding: 92px 24px 76px;
+      padding: 120px 24px 100px;
     }
 
     .hero-eyebrow {
       display: inline-flex; align-items: center; gap: 7px;
-      font-size: 11px; font-weight: 600; color: var(--accent);
+      font-size: 11px; font-weight: 600; color: var(--ink-light);
       text-transform: uppercase; letter-spacing: 0.09em;
       margin-bottom: 32px;
     }
-    .hero-dot { width: 5px; height: 5px; border-radius: 50%; background: var(--accent); }
+    .hero-dot { width: 5px; height: 5px; border-radius: 50%; background: var(--green); }
 
     .hero-headline {
       font-family: var(--serif);
@@ -90,72 +92,72 @@
       margin-bottom: 24px;
       max-width: 800px;
     }
-    .hero-headline em { font-style: italic; color: var(--accent); }
+    .hero-headline em { font-style: italic; color: var(--green); }
 
     .hero-sub {
       font-size: clamp(16px, 2vw, 19px);
       color: var(--ink-mid);
       max-width: 520px;
       line-height: 1.72;
-      margin-bottom: 52px;
+      margin-bottom: 56px;
       font-weight: 300;
     }
 
     /* ── COMPARISON WIDGET ─────────────────────────────── */
     .comparison {
       display: flex; align-items: stretch;
-      border: 1px solid var(--border); border-radius: 10px;
-      overflow: hidden; max-width: 500px;
-      margin-bottom: 44px;
+      border: 1px solid var(--border); border-radius: 12px;
+      overflow: hidden; max-width: 520px;
+      margin: 0 0 56px;
     }
-    .comparison-side { flex: 1; padding: 28px 24px; background: var(--paper-warm); }
+    .comparison-side { flex: 1; padding: 36px 28px; background: var(--paper-warm); }
     .comparison-side.after { background: var(--paper); }
     .comparison-label {
       font-size: 10px; font-weight: 600; color: var(--ink-light);
-      text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 8px;
+      text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 10px;
     }
     .comparison-num {
       font-family: var(--serif);
-      font-size: clamp(40px, 5.5vw, 60px);
+      font-size: clamp(64px, 8vw, 88px);
       font-weight: 300; line-height: 1;
       letter-spacing: -0.04em;
     }
-    .comparison-num.before { color: var(--ink-faint); }
-    .comparison-num.after  { color: var(--accent); }
-    .comparison-note { font-size: 12px; color: var(--ink-light); margin-top: 7px; }
+    .comparison-num.before { color: var(--red-muted); }
+    .comparison-num.after  { color: var(--green); }
+    .comparison-note { font-size: 12px; color: var(--ink-faint); margin-top: 10px; }
     .comparison-divider {
       display: flex; align-items: center; justify-content: center;
-      padding: 0 16px;
+      padding: 0 20px;
       border-left: 1px solid var(--border);
       border-right: 1px solid var(--border);
-      color: var(--ink-faint); font-size: 16px;
+      color: var(--ink-faint); font-size: 14px;
       background: var(--paper-warm);
     }
 
     /* ── PROOF BAR ─────────────────────────────────────── */
     .proof-bar {
       display: flex; align-items: center; gap: 24px;
-      flex-wrap: wrap; margin-bottom: 44px;
+      flex-wrap: wrap; margin-bottom: 48px;
     }
     .proof-item {
       display: flex; align-items: center; gap: 7px;
       font-size: 13px; color: var(--ink-mid); font-weight: 400;
     }
-    .proof-check { color: var(--accent); font-size: 13px; font-weight: 700; }
+    .proof-check { color: var(--green); font-size: 13px; font-weight: 700; }
 
     /* ── HERO CTA ──────────────────────────────────────── */
     .hero-cta { display: flex; align-items: center; gap: 18px; flex-wrap: wrap; }
     .btn-primary {
       display: inline-flex; align-items: center;
       padding: 15px 30px;
-      background: var(--ink); color: #fff;
+      background: var(--cta); color: #fff;
       font-family: var(--sans); font-size: 15px; font-weight: 600;
       letter-spacing: -0.01em;
       border: none; border-radius: 7px;
       cursor: pointer; text-decoration: none;
-      transition: background 0.15s, transform 0.1s;
+      transition: background 0.15s;
     }
-    .btn-primary:hover { background: #1e1e1e; }
+    .btn-primary:hover { background: var(--cta-hover); }
     .btn-primary:active { transform: scale(0.98); }
     .hero-cta-note { font-size: 13px; color: var(--ink-light); }
 
@@ -166,10 +168,10 @@
     }
 
     /* ── SECTIONS ──────────────────────────────────────── */
-    .section { max-width: 960px; margin: 0 auto; padding: 72px 24px; }
+    .section { max-width: 960px; margin: 0 auto; padding: 100px 24px; }
 
     .section-tag {
-      font-size: 10px; font-weight: 700; color: var(--accent);
+      font-size: 10px; font-weight: 700; color: var(--ink-light);
       text-transform: uppercase; letter-spacing: 0.12em; margin-bottom: 20px;
     }
     .section-h {
@@ -179,7 +181,7 @@
       letter-spacing: -0.022em; color: var(--ink);
       margin-bottom: 20px;
     }
-    .section-h em { font-style: italic; color: var(--accent); }
+    .section-h em { font-style: italic; color: var(--green); }
     .section-p {
       font-size: 17px; color: var(--ink-mid);
       max-width: 580px; line-height: 1.72; font-weight: 300;
@@ -191,33 +193,33 @@
       font-size: clamp(19px, 2.4vw, 27px);
       font-weight: 300; font-style: italic;
       color: var(--ink); line-height: 1.46;
-      border-left: 2px solid var(--accent);
+      border-left: 2px solid var(--ink-faint);
       padding: 2px 0 2px 24px;
-      margin: 44px 0; max-width: 560px;
+      margin: 48px 0; max-width: 560px;
     }
 
     /* ── PROBLEM LIST ──────────────────────────────────── */
     .problem-list {
-      margin-top: 48px;
-      border: 1px solid var(--border);
-      border-radius: 8px; overflow: hidden;
+      margin-top: 56px;
+      display: flex; flex-direction: column; gap: 12px;
     }
     .problem-item {
-      display: flex; align-items: stretch;
-      border-bottom: 1px solid var(--border);
+      display: flex; align-items: flex-start; gap: 28px;
+      padding: 40px;
+      background: var(--paper);
+      border: 1px solid var(--border);
+      border-radius: 10px;
       transition: background 0.15s;
     }
-    .problem-item:last-child { border-bottom: none; }
     .problem-item:hover { background: var(--paper-warm); }
-    .problem-num-col {
-      width: 64px; flex-shrink: 0;
-      padding: 28px 0 28px 28px;
-      font-family: var(--serif); font-size: 30px; font-weight: 300;
-      color: var(--ink-faint); line-height: 1;
-      letter-spacing: -0.02em;
-      border-right: 1px solid var(--border);
+    .problem-icon-col {
+      flex-shrink: 0;
+      width: 40px; height: 40px;
+      display: flex; align-items: flex-start; justify-content: center;
+      color: var(--ink-light);
+      padding-top: 3px;
     }
-    .problem-text-col { padding: 28px 28px 28px 24px; }
+    .problem-text-col { flex: 1; }
     .problem-text-col strong {
       display: block; font-size: 16px; font-weight: 600;
       color: var(--ink); margin-bottom: 8px; letter-spacing: -0.01em;
@@ -227,14 +229,14 @@
     /* ── SOLUTION CARD ─────────────────────────────────── */
     .solution-card {
       background: var(--paper-tint); border: 1px solid var(--border);
-      border-radius: 10px; padding: 48px 44px; margin-top: 44px;
+      border-radius: 10px; padding: 48px 44px; margin-top: 48px;
     }
     .solution-card-h {
       font-family: var(--serif); font-size: clamp(22px, 2.8vw, 33px);
       font-weight: 400; letter-spacing: -0.02em; line-height: 1.18;
       color: var(--ink); margin-bottom: 14px;
     }
-    .solution-card-h em { font-style: italic; color: var(--accent); }
+    .solution-card-h em { font-style: italic; }
     .solution-card-p {
       font-size: 16px; color: var(--ink-mid); line-height: 1.72;
       max-width: 500px; font-weight: 300; margin-bottom: 36px;
@@ -254,18 +256,18 @@
     /* ── INSIDE GRID ───────────────────────────────────── */
     .inside-grid {
       display: grid; grid-template-columns: repeat(3, 1fr);
-      gap: 1px; margin-top: 44px;
+      gap: 2px; margin-top: 48px;
       background: var(--border);
-      border: 1px solid var(--border); border-radius: 8px; overflow: hidden;
+      border: 1px solid var(--border); border-radius: 10px; overflow: hidden;
     }
     @media (max-width: 640px) { .inside-grid { grid-template-columns: 1fr; } }
     .inside-item {
-      background: var(--paper); padding: 36px 28px;
+      background: var(--paper); padding: 40px 32px;
       transition: background 0.15s;
     }
     .inside-item:hover { background: var(--paper-warm); }
     .inside-label {
-      font-size: 10px; font-weight: 700; color: var(--accent);
+      font-size: 10px; font-weight: 700; color: var(--ink-light);
       text-transform: uppercase; letter-spacing: 0.1em;
       margin-bottom: 16px; display: block;
     }
@@ -277,23 +279,21 @@
     .inside-desc { font-size: 14px; color: var(--ink-mid); line-height: 1.7; font-weight: 300; }
 
     /* ── TESTIMONIAL ───────────────────────────────────── */
-    .testimonial-section { background: var(--paper-warm); padding: 72px 24px; }
-    .testimonial-inner { max-width: 540px; margin: 0 auto; text-align: center; }
-    .testimonial-box {
-      border: 1px dashed var(--border); border-radius: 10px; padding: 48px 32px;
-    }
-    .testimonial-box-tag {
-      font-size: 10px; font-weight: 700; color: var(--ink-faint);
+    .testimonial-section { background: var(--paper); padding: 80px 24px; }
+    .testimonial-inner { max-width: 480px; margin: 0 auto; text-align: center; }
+    .testimonial-empty-tag {
+      font-size: 10px; font-weight: 600; color: var(--ink-faint);
       text-transform: uppercase; letter-spacing: 0.1em;
-      display: block; margin-bottom: 14px;
+      display: block; margin-bottom: 16px;
     }
-    .testimonial-box p {
-      font-size: 15px; color: var(--ink-light);
-      line-height: 1.72; font-style: italic;
+    .testimonial-empty-p {
+      font-family: var(--serif); font-size: 17px;
+      color: var(--ink-faint); line-height: 1.8; font-style: italic;
+      font-weight: 300;
     }
 
     /* ── PRICE SECTION ─────────────────────────────────── */
-    .price-section { background: var(--ink); padding: 92px 24px; text-align: center; }
+    .price-section { background: var(--ink); padding: 100px 24px; text-align: center; }
     .price-inner { max-width: 520px; margin: 0 auto; }
     .price-tag {
       font-size: 10px; font-weight: 700; color: rgba(255,255,255,0.3);
@@ -305,7 +305,7 @@
       font-weight: 400; letter-spacing: -0.025em; line-height: 1.1;
       color: #fff; margin-bottom: 16px;
     }
-    .price-h em { font-style: italic; color: var(--accent); }
+    .price-h em { font-style: italic; color: var(--green); }
     .price-sub {
       font-size: 16px; color: rgba(255,255,255,0.45); line-height: 1.72;
       max-width: 420px; margin: 0 auto 48px; font-weight: 300;
@@ -330,19 +330,19 @@
       font-size: 14px; color: var(--ink-mid);
     }
     .price-list li::before {
-      content: '✓'; color: var(--accent);
+      content: '✓'; color: var(--green);
       font-weight: 700; font-size: 13px; flex-shrink: 0;
     }
     .btn-buy-main {
       display: block; width: 100%;
-      padding: 17px 28px; background: var(--accent);
+      padding: 17px 28px; background: var(--cta);
       color: #fff; font-family: var(--sans); font-size: 16px;
       font-weight: 600; letter-spacing: -0.01em;
       border: none; border-radius: 7px; cursor: pointer;
       text-align: center; text-decoration: none;
-      transition: background 0.15s, transform 0.1s;
+      transition: background 0.15s;
     }
-    .btn-buy-main:hover { background: var(--accent-mid); }
+    .btn-buy-main:hover { background: var(--cta-hover); }
     .btn-buy-main:active { transform: scale(0.98); }
     .price-guarantee {
       font-size: 12px; color: var(--ink-light);
@@ -374,18 +374,18 @@
       border: 1px solid var(--border); border-radius: 7px;
       outline: none; transition: border-color 0.15s;
     }
-    .email-capture-input:focus { border-color: var(--accent); }
+    .email-capture-input:focus { border-color: var(--ink); }
     .email-capture-input::placeholder { color: var(--ink-faint); }
     .btn-capture {
       display: inline-flex; align-items: center; white-space: nowrap;
       padding: 12px 22px;
-      background: var(--accent); color: #fff;
+      background: var(--cta); color: #fff;
       font-family: var(--sans); font-size: 15px; font-weight: 600;
       letter-spacing: -0.01em;
       border: none; border-radius: 7px; cursor: pointer;
-      transition: background 0.15s, transform 0.1s;
+      transition: background 0.15s;
     }
-    .btn-capture:hover { background: var(--accent-mid); }
+    .btn-capture:hover { background: var(--cta-hover); }
     .btn-capture:active { transform: scale(0.98); }
     .email-capture-skip {
       display: block; margin-top: 14px;
@@ -409,11 +409,11 @@
     }
     .footer-left { font-size: 13px; color: var(--ink-light); }
     .footer-left a { color: var(--ink-mid); text-decoration: none; }
-    .footer-left a:hover { color: var(--accent); }
+    .footer-left a:hover { color: var(--ink); }
     .footer-right { font-size: 13px; color: var(--ink-faint); }
 
     /* ── SCROLL REVEAL ─────────────────────────────────── */
-    .reveal { opacity: 0; transform: translateY(16px); transition: opacity 0.5s ease, transform 0.5s ease; }
+    .reveal { opacity: 0; transform: translateY(16px); transition: opacity 0.6s ease-out, transform 0.6s ease-out; }
     .reveal.visible { opacity: 1; transform: translateY(0); }
     .reveal-d1 { transition-delay: 0.08s; }
     .reveal-d2 { transition-delay: 0.16s; }
@@ -421,13 +421,14 @@
 
     /* ── MOBILE ────────────────────────────────────────── */
     @media (max-width: 680px) {
-      .hero { padding: 56px 20px 52px; }
-      .section { padding: 56px 20px; }
+      .hero { padding: 72px 20px 60px; }
+      .section { padding: 72px 20px; }
       .comparison { max-width: 100%; }
-      .comparison-num { font-size: 40px; }
+      .comparison-num { font-size: 56px; }
       .solution-card { padding: 32px 24px; }
       .price-card { padding: 32px 24px; }
       .footer-inner { flex-direction: column; text-align: center; }
+      .problem-item { padding: 28px 24px; gap: 20px; }
     }
   </style>
 </head>
@@ -526,21 +527,35 @@
 
   <div class="problem-list">
     <div class="problem-item reveal">
-      <div class="problem-num-col">1</div>
+      <div class="problem-icon-col">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="7" y="7" width="10" height="10" rx="1"/>
+          <path d="M9 7V4M12 7V4M15 7V4M9 17v3M12 17v3M15 17v3M7 9H4M7 12H4M7 15H4M17 9h3M17 12h3M17 15h3"/>
+        </svg>
+      </div>
       <div class="problem-text-col">
         <strong>Everything runs on the expensive AI</strong>
         <p>Checking the weather, summarising an email, sending a reminder — all of it goes through the most powerful (and most expensive) AI by default. Simple tasks don't need that. You're paying top rates for basic work.</p>
       </div>
     </div>
     <div class="problem-item reveal reveal-d1">
-      <div class="problem-num-col">2</div>
+      <div class="problem-icon-col">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round">
+          <circle cx="12" cy="12" r="9"/>
+          <path d="M12 7v5l3 3"/>
+        </svg>
+      </div>
       <div class="problem-text-col">
         <strong>Your agent checks in constantly — even while you sleep</strong>
         <p>OpenClaw runs background checks every 15 minutes, 24/7. Each one costs money. Most find nothing to do. By morning you've paid for hundreds of checks that amounted to "all clear, carry on."</p>
       </div>
     </div>
     <div class="problem-item reveal reveal-d2">
-      <div class="problem-num-col">3</div>
+      <div class="problem-icon-col">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round">
+          <path d="M3 6h18M3 10h18M3 14h12M3 18h8"/>
+        </svg>
+      </div>
       <div class="problem-text-col">
         <strong>Old conversations keep running up the tab</strong>
         <p>Every time your agent does anything, it re-reads your entire conversation history. After a few hours, that's a lot of text — and you pay for every word, every time. One setting change stops this immediately.</p>
@@ -609,14 +624,12 @@
 
 <!-- TESTIMONIAL -->
 <div class="testimonial-section">
-  <div class="testimonial-inner">
-    <div class="testimonial-box reveal">
-      <span class="testimonial-box-tag">First reviews coming in</span>
-      <p>
-        We'll post real quotes here once the first customers have had a chance to check their next bill.
-        If you buy today and it works — and it will — send us a note.
-      </p>
-    </div>
+  <div class="testimonial-inner reveal">
+    <span class="testimonial-empty-tag">First reviews coming in</span>
+    <p class="testimonial-empty-p">
+      We'll post real quotes here once the first customers have had a chance to check their next bill.
+      If you buy today and it works — and it will — send us a note.
+    </p>
   </div>
 </div>
 
@@ -705,7 +718,7 @@
     if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
       msg.textContent = 'Please enter a valid email address.';
       msg.style.display = 'block';
-      msg.style.color = 'var(--accent)';
+      msg.style.color = 'var(--red-muted)';
       return;
     }
 
